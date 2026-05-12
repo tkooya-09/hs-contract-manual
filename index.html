@@ -1,0 +1,2252 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>화성시 사업담당자 계약업무 매뉴얼</title>
+<style>
+:root {
+  --primary: #1F4E79;
+  --secondary: #2E75B6;
+  --me-green: #16A34A;
+  --me-green-bg: #DCFCE7;
+  --me-green-light: #F0FDF4;
+  --consult-red: #DC2626;
+  --consult-red-bg: #FEE2E2;
+  --consult-red-light: #FEF2F2;
+  --warning: #F59E0B;
+  --warning-bg: #FEF3C7;
+  --info-blue: #3B82F6;
+  --info-bg: #DBEAFE;
+  --bg: #F5F7FA;
+  --card: #FFFFFF;
+  --border: #E5E7EB;
+  --border-strong: #D1D5DB;
+  --text: #111827;
+  --text-mute: #6B7280;
+  --text-light: #9CA3AF;
+  --light-blue: #EBF2F9;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Malgun Gothic', '맑은 고딕', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--bg); color: var(--text); font-size: 14px; line-height: 1.5; min-height: 100vh;
+}
+.header {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+  color: white; padding: 14px 24px;
+  display: flex; align-items: center; justify-content: space-between;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+.header h1 { font-size: 18px; font-weight: 600; }
+.header .sub { font-size: 11px; opacity: 0.85; margin-top: 2px; }
+.header .authors { font-size: 10.5px; opacity: 0.92; margin-top: 4px; }
+.header .authors b { font-weight: 700; }
+.role-badge {
+  background: #FCD34D; color: #78350F;
+  padding: 4px 10px; border-radius: 12px;
+  font-size: 11px; font-weight: 600; margin-left: 10px;
+}
+.btn-header {
+  background: rgba(255,255,255,0.18); color: white;
+  border: 1px solid rgba(255,255,255,0.3);
+  padding: 6px 12px; border-radius: 6px;
+  cursor: pointer; font-size: 12px; font-weight: 500;
+}
+.btn-header:hover { background: rgba(255,255,255,0.28); }
+
+.main {
+  display: grid; grid-template-columns: 340px 1fr; gap: 12px;
+  padding: 12px; max-width: 1600px; margin: 0 auto;
+}
+.input-panel {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 10px; padding: 14px; height: fit-content;
+  position: sticky; top: 12px; max-height: calc(100vh - 24px); overflow-y: auto;
+}
+.section-title {
+  font-size: 11px; font-weight: 700; color: var(--primary);
+  text-transform: uppercase; letter-spacing: 0.5px;
+  margin-bottom: 8px; padding-bottom: 5px;
+  border-bottom: 2px solid var(--primary);
+  display: flex; align-items: center; gap: 5px;
+}
+.section-title:not(:first-of-type) { margin-top: 14px; }
+
+.approver-actions { display: flex; gap: 3px; text-transform: none; letter-spacing: 0; }
+.mini-btn {
+  border: 1px solid var(--border-strong);
+  background: white;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-size: 9.5px;
+  cursor: pointer;
+  font-weight: 500;
+  color: var(--text);
+  line-height: 1.3;
+}
+.mini-btn.save { color: var(--me-green); border-color: var(--me-green); }
+.mini-btn.save:hover { background: var(--me-green); color: white; }
+.mini-btn.load { color: var(--secondary); border-color: var(--secondary); }
+.mini-btn.load:hover { background: var(--secondary); color: white; }
+.mini-btn.clear { color: var(--consult-red); border-color: var(--consult-red); padding: 2px 5px; }
+.mini-btn.clear:hover { background: var(--consult-red); color: white; }
+
+.approver-saved-info {
+  font-size: 10px;
+  color: var(--text-mute);
+  background: var(--me-green-light);
+  border: 1px dashed var(--me-green);
+  border-radius: 4px;
+  padding: 4px 7px;
+  margin-bottom: 8px;
+  display: none;
+}
+.approver-saved-info.active { display: block; }
+.approver-saved-info b { color: var(--me-green); }
+
+.type-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 5px; }
+.type-btn {
+  background: var(--card); border: 1.5px solid var(--border);
+  border-radius: 8px; padding: 8px 4px; cursor: pointer;
+  font-size: 12px; text-align: center; font-weight: 500;
+}
+.type-btn:hover { background: var(--light-blue); border-color: var(--secondary); }
+.type-btn.active { background: var(--primary); color: white; border-color: var(--primary); }
+.type-btn .icon { display: block; font-size: 20px; margin-bottom: 1px; }
+
+.options-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 4px; }
+.opt-btn {
+  background: white; border: 1px solid var(--border-strong);
+  border-radius: 5px; padding: 5px 6px;
+  font-size: 10.5px; cursor: pointer; text-align: left;
+}
+.opt-btn:hover { background: var(--light-blue); }
+.opt-btn.active { background: var(--me-green); color: white; border-color: var(--me-green); }
+.opt-btn.consult-style.active { background: var(--consult-red); border-color: var(--consult-red); }
+
+.form-row { margin-bottom: 8px; }
+.form-label { display: block; font-size: 11px; font-weight: 500; color: var(--text-mute); margin-bottom: 3px; }
+.form-label.req::after { content: '*'; color: var(--consult-red); margin-left: 3px; }
+.form-input {
+  width: 100%; padding: 7px 9px; border: 1px solid var(--border-strong);
+  border-radius: 5px; font-family: inherit; font-size: 12px; background: white;
+}
+.form-input:focus { outline: none; border-color: var(--secondary); box-shadow: 0 0 0 2px rgba(46, 117, 182, 0.15); }
+.amount-row { display: flex; gap: 5px; align-items: center; }
+.amount-display {
+  background: var(--light-blue); color: var(--primary);
+  padding: 7px 8px; border-radius: 5px;
+  font-weight: 600; font-size: 11px; white-space: nowrap;
+  min-width: 70px; text-align: center;
+}
+.quick-row {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 2px;
+  margin-top: 4px;
+}
+.quick-btn {
+  background: white; border: 1px solid var(--border);
+  border-radius: 3px; padding: 3px 2px;
+  font-size: 9.5px; cursor: pointer; color: var(--text-mute);
+  line-height: 1.2;
+}
+.quick-btn:hover { background: var(--light-blue); color: var(--primary); border-color: var(--secondary); }
+
+.result-panel { display: flex; flex-direction: column; gap: 10px; }
+.summary-row { display: grid; grid-template-columns: 1.3fr 1fr; gap: 10px; }
+.card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 12px 14px; }
+.card-title {
+  font-size: 11px; font-weight: 700; color: var(--primary);
+  text-transform: uppercase; letter-spacing: 0.5px;
+  margin-bottom: 8px; padding-bottom: 5px;
+  border-bottom: 2px solid var(--primary);
+  display: flex; align-items: center; justify-content: space-between;
+}
+.card-title .icon-text { display: flex; align-items: center; gap: 5px; }
+.card-title .badge {
+  font-size: 9px; background: var(--light-blue); color: var(--primary);
+  padding: 2px 7px; border-radius: 8px; font-weight: 600;
+}
+.info-table { width: 100%; font-size: 12px; }
+.info-table td { padding: 3px 0; border-bottom: 1px dashed var(--border); vertical-align: top; }
+.info-table td.lbl { color: var(--text-mute); width: 80px; font-size: 11px; }
+.info-table td.val { font-weight: 500; }
+.info-table tr:last-child td { border-bottom: none; }
+
+.stat-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 6px; }
+.stat-box { background: var(--bg); border-radius: 6px; padding: 7px 9px; border-left: 3px solid var(--secondary); }
+.stat-label { font-size: 10px; color: var(--text-mute); margin-bottom: 2px; }
+.stat-value { font-size: 12px; font-weight: 600; }
+.stat-value.consult { color: var(--consult-red); }
+.stat-value.warn { color: var(--warning); }
+.stat-value.ok { color: var(--me-green); }
+.stat-box.consult { border-color: var(--consult-red); }
+.stat-box.warn { border-color: var(--warning); }
+.stat-box.ok { border-color: var(--me-green); }
+
+.alerts { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 6px; }
+.alert {
+  padding: 7px 9px; border-radius: 5px; font-size: 11.5px;
+  display: flex; gap: 6px; align-items: flex-start;
+  border-left: 3px solid; line-height: 1.4;
+  position: relative;
+}
+.alert.consult { background: var(--consult-red-bg); border-color: var(--consult-red); color: #7F1D1D; }
+.alert.warning { background: var(--warning-bg); border-color: var(--warning); color: #92400E; }
+.alert.info { background: var(--info-bg); border-color: var(--info-blue); color: #1E40AF; }
+.alert.success { background: var(--me-green-bg); border-color: var(--me-green); color: #14532D; }
+.alert-icon { flex-shrink: 0; font-size: 13px; }
+
+.alert.custom { padding-right: 50px; }
+.alert-actions {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  display: none;
+  gap: 2px;
+}
+.alert.custom:hover .alert-actions { display: flex; }
+.alert-action-btn {
+  background: rgba(255,255,255,0.9);
+  border: 1px solid var(--border-strong);
+  border-radius: 3px;
+  padding: 1px 4px;
+  font-size: 10px;
+  cursor: pointer;
+  line-height: 1.3;
+}
+.alert-action-btn:hover { background: white; }
+.alert-action-btn.del { color: var(--consult-red); border-color: var(--consult-red); }
+.alert-action-btn.del:hover { background: var(--consult-red); color: white; }
+.alert .user-badge {
+  font-size: 8.5px;
+  background: rgba(0,0,0,0.08);
+  padding: 1px 4px;
+  border-radius: 6px;
+  margin-left: 4px;
+  font-weight: 600;
+  vertical-align: middle;
+}
+
+.alert-type-btn {
+  background: white;
+  border: 1.5px solid var(--border);
+  border-radius: 5px;
+  padding: 6px 4px;
+  cursor: pointer;
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--text);
+}
+.alert-type-btn:hover { background: var(--bg); }
+.alert-type-btn.active {
+  background: var(--primary);
+  color: white;
+  border-color: var(--primary);
+}
+
+.flow-container { display: flex; gap: 4px; overflow-x: auto; padding: 10px 0 4px; }
+.flow-step {
+  flex: 1; min-width: 120px; background: var(--bg);
+  border-radius: 6px; padding: 8px; position: relative;
+  border-top: 3px solid var(--secondary);
+}
+.flow-step.me { border-top-color: var(--me-green); background: var(--me-green-light); }
+.flow-step.consult { border-top-color: var(--consult-red); background: var(--consult-red-light); }
+.flow-num {
+  position: absolute; top: -10px; left: 8px;
+  background: var(--secondary); color: white;
+  width: 20px; height: 20px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 10px; font-weight: 700;
+}
+.flow-step.me .flow-num { background: var(--me-green); }
+.flow-step.consult .flow-num { background: var(--consult-red); }
+.flow-name { font-size: 11.5px; font-weight: 600; margin: 4px 0 3px; }
+.flow-desc { font-size: 10px; color: var(--text-mute); line-height: 1.3; }
+.flow-actor {
+  display: inline-block; font-size: 9px;
+  padding: 1px 6px; border-radius: 8px;
+  margin-top: 4px; font-weight: 600;
+}
+.flow-actor.me { background: var(--me-green); color: white; }
+.flow-actor.them { background: var(--text-light); color: white; }
+.flow-actor.consult { background: var(--consult-red); color: white; }
+
+.docs-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; }
+.doc-stage { background: var(--bg); border-radius: 6px; padding: 8px; display: flex; flex-direction: column; }
+.doc-stage-head {
+  font-size: 11px; font-weight: 700; color: white;
+  background: var(--primary); padding: 5px 8px;
+  border-radius: 4px; margin-bottom: 6px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.doc-stage-head.me { background: var(--me-green); }
+.doc-stage-head.them { background: var(--text-light); }
+.doc-stage-count { background: rgba(255,255,255,0.25); padding: 1px 6px; border-radius: 8px; font-size: 9px; }
+.doc-list { display: flex; flex-direction: column; gap: 5px; flex: 1; }
+.doc-item {
+  background: white; border-radius: 5px; padding: 6px 7px;
+  border-left: 3px solid var(--secondary);
+  font-size: 11px; position: relative;
+}
+.doc-item.required { border-left-color: var(--me-green); }
+.doc-item.conditional { border-left-color: var(--warning); }
+.doc-item.common { border-left-color: var(--text-light); }
+.doc-item.special { border-left-color: var(--info-blue); }
+.doc-item.consult-item { border-left-color: var(--consult-red); }
+
+.doc-actions {
+  position: absolute; top: 4px; right: 5px;
+  display: flex; gap: 3px; align-items: center;
+}
+.doc-download-btn {
+  background: var(--me-green); color: white;
+  border: none; padding: 1px 5px; border-radius: 3px;
+  cursor: pointer; font-size: 10px; font-weight: 700;
+  line-height: 1.4;
+}
+.doc-download-btn:hover { background: #0E7A33; transform: scale(1.1); }
+.doc-owner {
+  font-size: 8.5px; padding: 1px 5px;
+  border-radius: 8px; font-weight: 600;
+}
+.doc-owner.me { background: var(--me-green); color: white; }
+.doc-owner.them { background: var(--text-light); color: white; }
+.doc-owner.vendor { background: var(--secondary); color: white; }
+
+.doc-name { font-weight: 600; line-height: 1.3; padding-right: 50px; }
+.doc-name.with-download { padding-right: 75px; }
+.doc-desc { font-size: 9.5px; color: var(--text-mute); margin-top: 2px; line-height: 1.3; padding-right: 50px; }
+.doc-tag {
+  display: inline-block; font-size: 8.5px;
+  padding: 1px 5px; border-radius: 8px;
+  margin-top: 3px; font-weight: 600;
+}
+.doc-tag.required { background: var(--me-green-bg); color: var(--me-green); }
+.doc-tag.conditional { background: var(--warning-bg); color: #92400E; }
+.doc-tag.common { background: #E5E7EB; color: var(--text-mute); }
+.doc-tag.special { background: var(--info-bg); color: var(--info-blue); }
+.doc-tag.consult-item { background: var(--consult-red-bg); color: var(--consult-red); }
+
+.legend {
+  display: flex; gap: 12px; font-size: 10px;
+  color: var(--text-mute); margin-top: 8px;
+  flex-wrap: wrap; padding-top: 8px;
+  border-top: 1px dashed var(--border);
+}
+.legend-item { display: flex; align-items: center; gap: 4px; }
+.legend-dot { width: 10px; height: 10px; border-radius: 2px; display: inline-block; }
+.legend-btn { background: var(--me-green); color: white; padding: 1px 5px; border-radius: 3px; font-size: 9px; font-weight: 700; }
+
+.action-row { display: flex; gap: 6px; flex-wrap: wrap; }
+.btn-action {
+  background: white; border: 1px solid var(--primary); color: var(--primary);
+  padding: 7px 12px; border-radius: 5px;
+  cursor: pointer; font-size: 11.5px; font-weight: 500;
+}
+.btn-action:hover { background: var(--primary); color: white; }
+.btn-action.green { border-color: var(--me-green); color: var(--me-green); }
+.btn-action.green:hover { background: var(--me-green); color: white; }
+
+/* 모달 */
+.modal-overlay {
+  display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.5); z-index: 1000;
+  align-items: center; justify-content: center; padding: 20px;
+}
+.modal-overlay.active { display: flex; }
+.modal {
+  background: white; border-radius: 10px;
+  max-width: 850px; width: 100%; max-height: 90vh;
+  display: flex; flex-direction: column;
+}
+.modal-header {
+  padding: 12px 18px; border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+  background: var(--primary); color: white; border-radius: 10px 10px 0 0;
+}
+.modal-header h3 { font-size: 14px; font-weight: 600; }
+.modal-actions { display: flex; gap: 6px; }
+.modal-body { padding: 28px 36px; overflow-y: auto; flex: 1; }
+.modal-close {
+  background: rgba(255,255,255,0.2); border: none; color: white;
+  width: 26px; height: 26px; border-radius: 4px;
+  cursor: pointer; font-size: 14px;
+}
+
+/* 서식 인쇄 스타일 */
+.print-doc { font-family: 'Malgun Gothic', '맑은 고딕', serif; color: black; line-height: 1.7; font-size: 13px; }
+.print-doc h1.doc-title {
+  font-size: 22px; font-weight: 700;
+  text-align: center; margin: 0 0 22px; letter-spacing: 10px;
+}
+.print-doc .doc-subtitle { font-size: 11px; color: #555; text-align: left; margin-bottom: 4px; }
+.print-doc table.form-table { width: 100%; border-collapse: collapse; margin: 14px 0; }
+.print-doc table.form-table td, .print-doc table.form-table th {
+  border: 1px solid black; padding: 8px 10px; font-size: 13px; vertical-align: middle;
+}
+.print-doc table.form-table th { background: #F3F4F6; font-weight: 600; text-align: center; }
+.print-doc .supervisor-table {
+  width: 200px; margin-left: auto; margin-right: 0; border-collapse: collapse;
+}
+.print-doc .supervisor-table th, .print-doc .supervisor-table td {
+  border: 1px solid black; padding: 4px 8px; font-size: 11px; text-align: center;
+}
+.print-doc .supervisor-table th { background: #F9FAFB; width: 60px; }
+.print-doc .doc-info { margin: 18px 0; padding-left: 4px; }
+.print-doc .doc-info p { margin: 5px 0; font-size: 13px; }
+.print-doc .doc-attach { margin: 14px 0; padding-left: 14px; }
+.print-doc .doc-attach p { margin: 4px 0; font-size: 12.5px; }
+.print-doc .doc-date { text-align: center; margin: 26px 0 16px; font-size: 13px; }
+.print-doc .doc-signer-block { margin: 6px 0; padding-left: 50%; font-size: 13px; }
+.print-doc .doc-signer-block p { margin: 3px 0; }
+.print-doc .doc-recipient {
+  text-align: center; font-weight: 700;
+  margin-top: 20px; font-size: 14px; padding-top: 12px;
+}
+.print-doc .doc-foot-note {
+  font-size: 10.5px; color: #555; margin-top: 10px;
+  padding-top: 6px; border-top: 1px dashed #999;
+}
+.print-doc ul.doc-list-disc { margin: 6px 0 6px 22px; }
+.print-doc ul.doc-list-disc li { margin: 3px 0; font-size: 12.5px; }
+.print-doc .approval-line { margin: 16px 0; padding: 0 8px; font-size: 13px; line-height: 2; }
+.print-doc .approval-line p { margin: 2px 0; }
+.print-doc .section-heading { font-weight: 700; margin: 14px 0 6px; font-size: 13.5px; }
+.print-doc .reason-content { padding-left: 14px; line-height: 1.9; font-size: 12.5px; }
+.print-doc .reason-content p { margin: 5px 0; }
+.print-doc .form-note {
+  background: #FEF3C7; border-left: 3px solid #F59E0B;
+  padding: 8px 12px; margin: 12px 0;
+  font-size: 11.5px; color: #78350F;
+}
+
+@media print {
+  .input-panel, .header { display: none; }
+  .main { grid-template-columns: 1fr; }
+  body { background: white; }
+  .modal-overlay { position: static; background: white; padding: 0; }
+  .modal { max-width: 100%; max-height: none; box-shadow: none; }
+  .modal-header { display: none; }
+  .modal-body { padding: 0; }
+}
+@media (max-width: 1200px) { .docs-grid { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 900px) {
+  .main { grid-template-columns: 1fr; }
+  .input-panel { position: static; max-height: none; }
+  .docs-grid { grid-template-columns: repeat(2, 1fr); }
+  .summary-row { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div>
+    <h1>🏛️ 화성시 사업담당자 계약업무 매뉴얼 <span class="role-badge">사업담당자 시점</span></h1>
+    <div class="sub">계약정보 입력 → 모든 서식 자동 반영 → 다운로드 (2026년 기준)</div>
+    <div class="authors"><b>화성시 빅데이터팀</b> 프로그램 개발자 작성 : 신환철 · 전명구 · 이동재 · 김지현 · 지우근 · 이주희</div>
+  </div>
+  <div>
+    <button class="btn-header" onclick="resetForm()">🔄 초기화</button>
+  </div>
+</div>
+
+<div class="main">
+  <div class="input-panel">
+    <div class="section-title">📋 계약 유형</div>
+    <div class="type-grid" id="type-buttons">
+      <button class="type-btn active" data-type="construction"><span class="icon">🏗️</span>공사</button>
+      <button class="type-btn" data-type="service"><span class="icon">📝</span>용역</button>
+      <button class="type-btn" data-type="goods"><span class="icon">📦</span>물품구입</button>
+    </div>
+
+    <div class="section-title">⚙️ 추가 조건</div>
+    <div class="options-grid">
+      <button class="opt-btn" data-opt="corp">🏢 법인사업자</button>
+      <button class="opt-btn" data-opt="suuie">📄 수의계약</button>
+      <button class="opt-btn" data-opt="outside">📍 관외업체</button>
+      <button class="opt-btn consult-style" data-opt="consult">↔️ 계약부서 협의</button>
+    </div>
+
+    <div class="section-title">✏️ 계약 정보</div>
+    <div class="form-row">
+      <label class="form-label req" id="name-label">공사명</label>
+      <input type="text" class="form-input" id="contract-name" placeholder="예: 간판 교체공사">
+    </div>
+    <div class="form-row">
+      <label class="form-label">사업 금액 (원)</label>
+      <input type="text" class="form-input" id="project-amount" value="20,000,000" placeholder="예: 20,000,000">
+      <div class="quick-row">
+        <button class="quick-btn" data-amount="5000000">500만</button>
+        <button class="quick-btn" data-amount="10000000">1천만</button>
+        <button class="quick-btn" data-amount="20000000">2천만</button>
+        <button class="quick-btn" data-amount="30000000">3천만</button>
+        <button class="quick-btn" data-amount="50000000">5천만</button>
+        <button class="quick-btn" data-amount="100000000">1억</button>
+      </div>
+    </div>
+    <div class="form-row">
+      <label class="form-label">네고율 (%) <span style="color:var(--consult-red); font-weight:600; font-size:10px;">※ 계약부서 협의</span></label>
+      <div class="amount-row">
+        <input type="number" class="form-input" id="nego-rate" value="0" min="0" max="100" step="0.1" style="flex:1;">
+        <span class="amount-display" id="nego-amount" style="background:var(--warning-bg); color:#92400E;">감액 0원</span>
+      </div>
+    </div>
+    <div class="form-row">
+      <label class="form-label req">계약 금액 (원) <span style="color:var(--text-mute); font-weight:400; font-size:10px;">※ 자동 산출 · 모든 서식 반영</span></label>
+      <div class="amount-row">
+        <input type="text" class="form-input" id="amount-input" value="20,000,000" readonly style="background:var(--me-green-light); font-weight:700; color:var(--me-green);">
+        <span class="amount-display" id="amount-display" style="background:var(--me-green); color:white;">2천만원</span>
+      </div>
+    </div>
+    <div class="form-row">
+      <label class="form-label">계약 일자</label>
+      <input type="date" class="form-input" id="start-date">
+    </div>
+    <div class="form-row">
+      <label class="form-label" id="end-label">준공 기한</label>
+      <input type="date" class="form-input" id="end-date">
+    </div>
+
+    <div class="section-title">🏢 업체 정보</div>
+    <div class="form-row"><label class="form-label">업체명 (상호)</label><input type="text" class="form-input" id="vendor-name" placeholder="예: ○○건설(주)"></div>
+    <div class="form-row"><label class="form-label">대표자</label><input type="text" class="form-input" id="rep" placeholder="예: 홍길동"></div>
+    <div class="form-row"><label class="form-label">사업자등록번호</label><input type="text" class="form-input" id="biz-num" placeholder="예: 123-45-67890"></div>
+    <div class="form-row"><label class="form-label">사업장 주소</label><input type="text" class="form-input" id="address" placeholder="예: 화성시 ○○○로 ○○"></div>
+    <div class="form-row"><label class="form-label" id="industry-label">업종 / 면허</label><input type="text" class="form-input" id="industry" placeholder="예: 실내건축공사업"></div>
+    <div class="form-row"><label class="form-label">전화번호</label><input type="text" class="form-input" id="phone" placeholder="예: 031-1234-5678"></div>
+
+    <div class="section-title" style="justify-content:space-between;">
+      <span>👤 담당자·결재 정보</span>
+      <span class="approver-actions">
+        <button type="button" class="mini-btn save" onclick="saveApprovers()" title="현재 입력값을 브라우저에 저장">💾 저장</button>
+        <button type="button" class="mini-btn load" onclick="loadApprovers()" title="저장된 값 불러오기">📂 불러오기</button>
+        <button type="button" class="mini-btn clear" onclick="clearSavedApprovers()" title="저장 삭제">🗑️</button>
+      </span>
+    </div>
+    <div class="approver-saved-info" id="approver-saved-info"></div>
+    <div class="form-row"><label class="form-label">소속 부서</label><input type="text" class="form-input" id="dept" placeholder="예: AI전략담당관 빅데이터팀"></div>
+    <div class="form-row"><label class="form-label">담당자 직급</label><input type="text" class="form-input" id="officer-rank" placeholder="예: 행정8급"></div>
+    <div class="form-row"><label class="form-label">담당자 성명</label><input type="text" class="form-input" id="officer-name" placeholder="예: 홍길동"></div>
+    <div class="form-row"><label class="form-label">팀장 직급</label><input type="text" class="form-input" id="leader-rank" placeholder="예: 전산6급"></div>
+    <div class="form-row"><label class="form-label">팀장 성명</label><input type="text" class="form-input" id="leader-name" placeholder="예: 김팀장"></div>
+    <div class="form-row"><label class="form-label">부서장 직급</label><input type="text" class="form-input" id="head-rank" placeholder="예: 행정5급"></div>
+    <div class="form-row"><label class="form-label">부서장 성명</label><input type="text" class="form-input" id="head-name" placeholder="예: 박과장"></div>
+  </div>
+
+  <div class="result-panel">
+    <div class="summary-row">
+      <div class="card">
+        <div class="card-title"><span class="icon-text">📌 계약 정보 요약</span><span class="badge" id="badge-type">공사</span></div>
+        <table class="info-table" id="info-table"></table>
+      </div>
+      <div class="card">
+        <div class="card-title"><span class="icon-text">🎯 핵심 지표 (자동 산출)</span></div>
+        <div class="stat-grid">
+          <div class="stat-box" id="stat-method-box"><div class="stat-label">계약 방식</div><div class="stat-value" id="stat-method">-</div></div>
+          <div class="stat-box" id="stat-bond-box"><div class="stat-label">계약 보증</div><div class="stat-value" id="stat-bond">-</div></div>
+          <div class="stat-box" id="stat-inspect-box"><div class="stat-label">검사자·입회자</div><div class="stat-value" id="stat-inspect">-</div></div>
+          <div class="stat-box" id="stat-approve-box"><div class="stat-label">협조 결재</div><div class="stat-value" id="stat-approve">-</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title" style="justify-content:space-between;">
+        <span class="icon-text">⚠️ 사업담당자 주의사항</span>
+        <span style="text-transform:none; letter-spacing:0; display:flex; gap:4px; align-items:center;">
+          <span style="font-size:10px; color:var(--text-mute); font-weight:400;">자동 + 사용자 추가</span>
+          <button type="button" class="mini-btn save" onclick="openAlertEditor()" style="font-size:10px;">➕ 추가</button>
+          <button type="button" class="mini-btn clear" onclick="clearCustomAlerts()" style="font-size:10px;" title="사용자 추가 항목 모두 삭제">🗑️ 전체삭제</button>
+        </span>
+      </div>
+      <div class="alerts" id="alerts"></div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">
+        <span class="icon-text">🔄 계약 절차 흐름</span>
+        <span style="font-size:10px; color:var(--text-mute); text-transform:none; letter-spacing:0;">
+          <span style="color:var(--me-green); font-weight:700;">● 사업담당자(나)</span> &nbsp;
+          <span style="color:var(--text-light); font-weight:700;">● 계약부서</span> &nbsp;
+          <span style="color:var(--consult-red); font-weight:700;">● 계약부서 협의</span>
+        </span>
+      </div>
+      <div class="flow-container" id="flow"></div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">
+        <span class="icon-text">📂 단계별 필요서류 <span id="docs-total" style="color:var(--text-mute); font-weight:400; text-transform:none; letter-spacing:0;"></span></span>
+        <span style="font-size:10px; color:var(--text-mute); text-transform:none; letter-spacing:0; font-weight:400;">
+          ※ <span class="legend-btn">📥</span> 클릭 → 서식 미리보기·다운로드
+        </span>
+      </div>
+      <div class="docs-grid" id="docs-grid"></div>
+      <div class="legend">
+        <div class="legend-item"><span class="legend-dot" style="background:var(--me-green);"></span>사업담당자(나) 준비</div>
+        <div class="legend-item"><span class="legend-dot" style="background:var(--text-light);"></span>계약부서 처리</div>
+        <div class="legend-item"><span class="legend-dot" style="background:var(--secondary);"></span>업체 제출</div>
+        <div class="legend-item"><span class="legend-dot" style="background:var(--consult-red);"></span>계약부서 협의 필요</div>
+        <div class="legend-item"><span class="legend-btn">📥</span> 서식 다운로드 가능</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">
+        <span class="icon-text">🚀 빠른 작업</span>
+        <span style="font-size:10px; color:var(--text-mute); text-transform:none; letter-spacing:0; font-weight:400;">
+          ※ 원인행위 요청서는 <b>이호조(e-호조)</b>에서 직접 출력
+        </span>
+      </div>
+      <div class="action-row">
+        <button class="btn-action" onclick="copyInfo()">📋 계약정보 복사</button>
+        <button class="btn-action" onclick="copyDocs()">📋 서류목록 복사</button>
+        <button class="btn-action green" onclick="downloadAllForms()">📦 전체 서식 일괄 다운로드</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modal-overlay">
+  <div class="modal">
+    <div class="modal-header">
+      <h3 id="modal-title">서식 미리보기</h3>
+      <div class="modal-actions">
+        <button class="btn-header" onclick="downloadHTML()">📥 HTML 다운로드</button>
+        <button class="btn-header" onclick="printForm()">🖨️ 인쇄</button>
+        <button class="btn-header" onclick="copyModalText()">📋 텍스트 복사</button>
+        <button class="modal-close" onclick="closeModal()">✕</button>
+      </div>
+    </div>
+    <div class="modal-body" id="modal-body"></div>
+  </div>
+</div>
+
+<!-- 주의사항 편집 모달 -->
+<div class="modal-overlay" id="alert-editor-overlay">
+  <div class="modal" style="max-width:520px;">
+    <div class="modal-header">
+      <h3 id="alert-editor-title">📝 주의사항 추가/편집</h3>
+      <button class="modal-close" onclick="closeAlertEditor()">✕</button>
+    </div>
+    <div class="modal-body" style="padding:20px 24px;">
+      <div class="form-row">
+        <label class="form-label">유형</label>
+        <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:4px;">
+          <button type="button" class="alert-type-btn" data-type="consult">↔️ 협의</button>
+          <button type="button" class="alert-type-btn active" data-type="warning">⚠️ 경고</button>
+          <button type="button" class="alert-type-btn" data-type="info">ℹ️ 정보</button>
+          <button type="button" class="alert-type-btn" data-type="success">✅ 정상</button>
+        </div>
+      </div>
+      <div class="form-row">
+        <label class="form-label">아이콘</label>
+        <input type="text" class="form-input" id="alert-icon-input" value="📌" maxlength="3" placeholder="이모지 1개">
+      </div>
+      <div class="form-row">
+        <label class="form-label req">내용</label>
+        <textarea class="form-input" id="alert-text-input" rows="3" placeholder="예: 사업 시작 전 부서장 사전 결재 필수" style="resize:vertical; min-height:60px;"></textarea>
+        <div style="font-size:10px; color:var(--text-mute); margin-top:3px;">
+          💡 강조하려면 <b>&lt;b&gt;텍스트&lt;/b&gt;</b> 사용 (예: &lt;b&gt;중요&lt;/b&gt; — 내용)
+        </div>
+      </div>
+      <div style="display:flex; gap:6px; justify-content:flex-end; margin-top:14px;">
+        <button class="btn-action" onclick="closeAlertEditor()">취소</button>
+        <button class="btn-action green" onclick="saveAlertItem()" id="alert-save-btn">💾 저장</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ═══════════════════════════════════════════════════
+// 상태 관리
+// ═══════════════════════════════════════════════════
+var state = { type: 'construction', amount: 20000000, options: new Set() };
+var typeLabels = { construction: '공사', service: '용역', goods: '물품구입' };
+var currentFormId = '';
+
+// ═══════════════════════════════════════════════════
+// 유틸리티 함수
+// ═══════════════════════════════════════════════════
+function fmtMoney(n) { return (n||0).toLocaleString('ko-KR') + '원'; }
+
+function fmtMoneyHangul(n) {
+  if (!n || n === 0) return '영원';
+  var digit = ['','일','이','삼','사','오','육','칠','팔','구'];
+  var unit1 = ['','십','백','천'];
+  var unit2 = ['','만','억','조','경'];
+  var str = '';
+  var num = String(Math.abs(Math.floor(n)));
+  var groups = [];
+  while (num.length > 0) { groups.unshift(num.slice(-4)); num = num.slice(0, -4); }
+  for (var g = 0; g < groups.length; g++) {
+    var grpNum = parseInt(groups[g], 10);
+    if (grpNum === 0) continue;
+    var grpStr = '';
+    var ds = groups[g].padStart(4, '0').split('');
+    for (var i = 0; i < 4; i++) {
+      var d = parseInt(ds[i], 10);
+      var pos = 3 - i;
+      if (d === 0) continue;
+      grpStr += digit[d] + unit1[pos];
+    }
+    str += grpStr + unit2[groups.length - 1 - g];
+  }
+  return str + '원';
+}
+
+function fmtShort(n) {
+  if (!n) return '0원';
+  if (n >= 100000000) return (Math.round(n / 10000000) / 10) + '억원';
+  if (n >= 10000000) return (Math.round(n / 10000) / 1000) + '천만원';
+  if (n >= 10000) return Math.round(n / 10000) + '만원';
+  return n + '원';
+}
+
+function parseAmount(s) { return parseInt(String(s).replace(/[^0-9]/g, ''), 10) || 0; }
+
+function fmtDateKor(d) {
+  if (!d) return '____년 __월 __일';
+  var parts = d.split('-');
+  if (parts.length !== 3) return '____년 __월 __일';
+  return parts[0] + '년 ' + parseInt(parts[1],10) + '월 ' + parseInt(parts[2],10) + '일';
+}
+
+function today() {
+  var t = new Date();
+  return t.getFullYear() + '년 ' + (t.getMonth()+1) + '월 ' + t.getDate() + '일';
+}
+
+function todayShort() {
+  var t = new Date();
+  var y = t.getFullYear();
+  var m = String(t.getMonth()+1).padStart(2, '0');
+  var d = String(t.getDate()).padStart(2, '0');
+  return y + m + d;
+}
+
+function escapeHtml(s) {
+  if (s === null || s === undefined) return '';
+  return String(s).replace(/[&<>"']/g, function(c) {
+    return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+  });
+}
+
+function v(val, blank) {
+  return val && String(val).trim() ? escapeHtml(val) : (blank || '_________________');
+}
+
+function getInfo() {
+  return {
+    type: typeLabels[state.type],
+    typeKey: state.type,
+    name: document.getElementById('contract-name').value || '',
+    amount: state.amount,
+    amountStr: fmtMoney(state.amount),
+    amountHangul: fmtMoneyHangul(state.amount),
+    sDate: document.getElementById('start-date').value,
+    eDate: document.getElementById('end-date').value,
+    sDateStr: fmtDateKor(document.getElementById('start-date').value),
+    eDateStr: fmtDateKor(document.getElementById('end-date').value),
+    vendor: document.getElementById('vendor-name').value || '',
+    rep: document.getElementById('rep').value || '',
+    bizNum: document.getElementById('biz-num').value || '',
+    address: document.getElementById('address').value || '',
+    industry: document.getElementById('industry').value || '',
+    phone: document.getElementById('phone').value || '',
+    dept: document.getElementById('dept').value || '',
+    officerRank: document.getElementById('officer-rank').value || '',
+    officerName: document.getElementById('officer-name').value || '',
+    leaderRank: document.getElementById('leader-rank').value || '',
+    leaderName: document.getElementById('leader-name').value || '',
+    headRank: document.getElementById('head-rank').value || '',
+    headName: document.getElementById('head-name').value || ''
+  };
+}
+
+// ═══════════════════════════════════════════════════
+// UI 업데이트
+// ═══════════════════════════════════════════════════
+function updateTypeUI() {
+  var t = state.type;
+  var labels = {
+    construction: { name: '공사명', end: '준공 기한', industry: '업종 / 면허', namePh: '예: 간판 교체공사', industryPh: '예: 실내건축공사업' },
+    service: { name: '용역명', end: '완료 기한', industry: '업종 (해당없음)', namePh: '예: 2026 빅데이터 분석 용역', industryPh: '해당없음' },
+    goods: { name: '물품명', end: '납품 기한', industry: '업종 (해당없음)', namePh: '예: 사무용 노트북 구입', industryPh: '해당없음' }
+  };
+  var l = labels[t];
+  document.getElementById('name-label').textContent = l.name;
+  document.getElementById('end-label').textContent = l.end;
+  document.getElementById('industry-label').textContent = l.industry;
+  document.getElementById('contract-name').placeholder = l.namePh;
+  document.getElementById('industry').placeholder = l.industryPh;
+  var industryInput = document.getElementById('industry');
+  if ((t === 'service' || t === 'goods') && !industryInput.value.trim()) {
+    industryInput.value = '해당없음';
+  } else if (t === 'construction' && industryInput.value === '해당없음') {
+    industryInput.value = '';
+  }
+  document.getElementById('badge-type').textContent = typeLabels[t];
+}
+
+function calculate() {
+  var a = state.amount, t = state.type, o = state.options;
+
+  var cName = document.getElementById('contract-name').value || '<span style="color:var(--text-light);">(미입력)</span>';
+  var sDate = document.getElementById('start-date').value || '<span style="color:var(--text-light);">(미입력)</span>';
+  var eDate = document.getElementById('end-date').value || '<span style="color:var(--text-light);">(미입력)</span>';
+  var vendor = document.getElementById('vendor-name').value || '<span style="color:var(--text-light);">(미입력)</span>';
+  var rep = document.getElementById('rep').value || '<span style="color:var(--text-light);">(미입력)</span>';
+  var bizNum = document.getElementById('biz-num').value || '<span style="color:var(--text-light);">(미입력)</span>';
+  var industry = document.getElementById('industry').value || '<span style="color:var(--text-light);">(미입력)</span>';
+  var address = document.getElementById('address').value || '<span style="color:var(--text-light);">(미입력)</span>';
+  var phone = document.getElementById('phone').value || '<span style="color:var(--text-light);">(미입력)</span>';
+
+  var nameLabel = t === 'construction' ? '공사명' : t === 'service' ? '용역명' : '물품명';
+  var indLabel = t === 'construction' ? '업종/면허' : '업종';
+
+  // 사업금액·네고율 정보 (계약금액 위에 표시)
+  var projectAmt = parseAmount(document.getElementById('project-amount').value);
+  var negoRate = parseFloat(document.getElementById('nego-rate').value) || 0;
+  var negoCut = Math.round(projectAmt * (negoRate / 100));
+  var negoInfoRow = '';
+  if (negoRate > 0) {
+    negoInfoRow =
+      '<tr><td class="lbl">사업금액</td><td class="val" style="color:var(--text-mute);">' + fmtMoney(projectAmt) + '</td></tr>' +
+      '<tr><td class="lbl">네고율</td><td class="val" style="color:var(--warning);">' + negoRate + '% (-' + fmtMoney(negoCut) + ')</td></tr>';
+  }
+
+  document.getElementById('info-table').innerHTML =
+    '<tr><td class="lbl">' + nameLabel + '</td><td class="val">' + cName + '</td></tr>' +
+    negoInfoRow +
+    '<tr><td class="lbl">계약금액</td><td class="val" style="color:var(--primary); font-weight:700;">' + fmtMoney(a) + ' <span style="color:var(--text-mute); font-weight:400; font-size:11px;">(' + fmtShort(a) + ')</span></td></tr>' +
+    '<tr><td class="lbl">계약기간</td><td class="val">' + sDate + ' ~ ' + eDate + '</td></tr>' +
+    '<tr><td class="lbl">업체명</td><td class="val">' + vendor + '</td></tr>' +
+    '<tr><td class="lbl">대표자</td><td class="val">' + rep + '</td></tr>' +
+    '<tr><td class="lbl">사업자번호</td><td class="val">' + bizNum + '</td></tr>' +
+    '<tr><td class="lbl">' + indLabel + '</td><td class="val">' + industry + '</td></tr>' +
+    '<tr><td class="lbl">주소</td><td class="val">' + address + '</td></tr>' +
+    '<tr><td class="lbl">연락처</td><td class="val">' + phone + '</td></tr>';
+
+  var method = '일반경쟁입찰', methodClass = 'consult';
+  if (o.has('suuie') || a <= 20000000) {
+    if (a <= 5000000) { method = '수의(1인견적)'; methodClass = 'ok'; }
+    else if (a <= 20000000) { method = '수의(2인견적)'; methodClass = 'ok'; }
+  }
+  if (a > 50000000) { method = '일반경쟁입찰(G2B)'; methodClass = 'consult'; }
+  else if (a > 20000000 && !o.has('suuie')) { method = '일반경쟁입찰'; methodClass = 'consult'; }
+  document.getElementById('stat-method').textContent = method;
+  document.getElementById('stat-method').className = 'stat-value ' + methodClass;
+  document.getElementById('stat-method-box').className = 'stat-box ' + methodClass;
+
+  var rate = t === 'construction' ? 7.5 : 5;
+  var bondText = a >= 50000000 ? '보증증권 (' + rate + '%)' : '면제각서 (' + rate + '%)';
+  document.getElementById('stat-bond').textContent = bondText;
+  var bondClass = a >= 50000000 ? 'warn' : 'ok';
+  document.getElementById('stat-bond').className = 'stat-value ' + bondClass;
+  document.getElementById('stat-bond-box').className = 'stat-box ' + bondClass;
+
+  var inspector = a < 30000000 ? '담당자 / 팀장 협조' : '팀장 + 회계팀장 입회';
+  document.getElementById('stat-inspect').textContent = inspector;
+  var inspClass = a >= 30000000 ? 'warn' : 'ok';
+  document.getElementById('stat-inspect').className = 'stat-value ' + inspClass;
+  document.getElementById('stat-inspect-box').className = 'stat-box ' + inspClass;
+
+  var approvalLines = [];
+  if (a < 30000000) approvalLines.push('팀장'); else approvalLines.push('과장');
+  if (o.has('consult')) approvalLines.push('계약부서 협의');
+  if (o.has('outside')) approvalLines.push('관외사유 확인자');
+  document.getElementById('stat-approve').textContent = approvalLines.join(' · ');
+  var apprClass = o.has('consult') ? 'consult' : 'ok';
+  document.getElementById('stat-approve').className = 'stat-value ' + apprClass;
+  document.getElementById('stat-approve-box').className = 'stat-box ' + apprClass;
+
+  var alerts = [];
+  if (o.has('consult')) alerts.push({ type: 'consult', icon: '↔️', text: '<b>계약부서 협의 필요</b> — 가격협상·선금·단순노무 등 특수사항' });
+  if (a > 50000000) alerts.push({ type: 'warning', icon: '⚠️', text: '<b>5천만원 초과</b> — 일반경쟁입찰 원칙. 계약부서 사전 협의 必' });
+  if (a >= 10000000 && a < 50000000) alerts.push({ type: 'warning', icon: '💵', text: '<b>1천만원 이상</b> — 정부수입인지 납부 必 (홈택스)' });
+  if (a >= 20000000 && t !== 'goods') alerts.push({ type: 'info', icon: '🪙', text: '<b>2천만원 이상</b> — 지역개발채권 매입 必 (공급가액 1.5%, 청구시마다)' });
+  if (a >= 30000000) alerts.push({ type: 'consult', icon: '👥', text: '<b>3천만원 이상 검수</b> — 검사자 <b>팀장</b>, 입회자 <b>회계팀장</b> 必' });
+  if (o.has('outside')) alerts.push({ type: 'warning', icon: '📍', text: '<b>관외업체</b> — 관외업체 선정 사유서 직접 작성' });
+  if (o.has('suuie') || a <= 20000000) alerts.push({ type: 'info', icon: '📄', text: '<b>수의계약</b> — 요청 사유서 + 체결제한 확인서 + 각서 3종 준비' });
+  if (a > 15000000 && t === 'construction') alerts.push({ type: 'warning', icon: '📜', text: '<b>공사 1,500만원 이상</b> — 건설업 면허 확인 必' });
+  if (alerts.length === 0) alerts.push({ type: 'success', icon: '✅', text: '표준 계약 조건 — 일반 절차로 진행 가능' });
+
+  // 사용자가 추가한 주의사항 병합
+  var customAlerts = loadCustomAlerts();
+  var combined = alerts.concat(customAlerts.map(function(c, idx) {
+    return { type: c.type, icon: c.icon, text: c.text, custom: true, customId: c.id };
+  }));
+
+  document.getElementById('alerts').innerHTML = combined.map(function(a) {
+    if (a.custom) {
+      return '<div class="alert ' + a.type + ' custom" data-custom-id="' + a.customId + '">' +
+        '<span class="alert-icon">' + a.icon + '</span>' +
+        '<span>' + a.text + '<span class="user-badge">사용자</span></span>' +
+        '<span class="alert-actions">' +
+        '<button class="alert-action-btn" onclick="editAlertItem(\'' + a.customId + '\')" title="수정">✏️</button>' +
+        '<button class="alert-action-btn del" onclick="deleteAlertItem(\'' + a.customId + '\')" title="삭제">🗑️</button>' +
+        '</span>' +
+        '</div>';
+    }
+    return '<div class="alert ' + a.type + '"><span class="alert-icon">' + a.icon + '</span><span>' + a.text + '</span></div>';
+  }).join('');
+
+  renderFlow();
+  renderDocs();
+}
+
+function renderFlow() {
+  var a = state.amount, t = state.type, o = state.options;
+  var steps = [
+    { num: 1, name: '사업 기획·품의', desc: '예산 확보·결재', actor: 'me' },
+    { num: 2, name: '원인행위 요청', desc: '이호조 시스템 등록', actor: 'me' }
+  ];
+  if (o.has('consult')) steps.push({ num: '★', name: '계약부서 협의', desc: '가격·선금 등', actor: 'consult' });
+  if (o.has('suuie') || a <= 20000000) {
+    steps.push({ num: 3, name: '수의계약 진행', desc: '계약부서 검토', actor: 'them' });
+  } else if (a > 50000000) {
+    steps.push({ num: 3, name: 'G2B 입찰공고', desc: '나라장터 공고', actor: 'them' });
+  } else {
+    steps.push({ num: 3, name: '2인 견적 비교', desc: '낙찰자 결정', actor: 'them' });
+  }
+  steps.push({ num: 4, name: '계약체결', desc: 'G2B 전자계약', actor: 'them' });
+  if (t !== 'goods') steps.push({ num: 5, name: '착수계 접수', desc: '감독·이행 관리', actor: 'me' });
+  else steps.push({ num: 5, name: '납품 확인', desc: 'G2B 납품확인', actor: 'me' });
+  if (a >= 30000000) steps.push({ num: 6, name: '검사(팀장+입회)', desc: '회계팀장 입회 必', actor: 'consult' });
+  else steps.push({ num: 6, name: '검사·검수', desc: '담당자+팀장 협조', actor: 'me' });
+  if (t === 'construction' || t === 'service') steps.push({ num: 7, name: '정산합의서', desc: '변동분 정산', actor: 'me' });
+  steps.push({ num: 8, name: '대가지급', desc: '청구 검토·이체', actor: 'them' });
+
+  document.getElementById('flow').innerHTML = steps.map(function(s) {
+    return '<div class="flow-step ' + s.actor + '">' +
+      '<div class="flow-num">' + s.num + '</div>' +
+      '<div class="flow-name">' + s.name + '</div>' +
+      '<div class="flow-desc">' + s.desc + '</div>' +
+      '<span class="flow-actor ' + s.actor + '">' + (s.actor === 'me' ? '나' : s.actor === 'consult' ? '협의' : '계약부서') + '</span>' +
+      '</div>';
+  }).join('');
+}
+
+// ═══════════════════════════════════════════════════
+// 필요서류 렌더링 (📥 다운로드 버튼 통합)
+// ═══════════════════════════════════════════════════
+function renderDocs() {
+  var a = state.amount, t = state.type, o = state.options;
+  var typeWord = t === 'construction' ? '공사' : t === 'service' ? '용역' : '물품';
+  var rateStr = t === 'construction' ? '7.5' : '5';
+
+  var stages = {
+    pre: { icon: '📑', title: '① 계약 전 (내가 준비)', headClass: 'me', docs: [] },
+    sign: { icon: '✍️', title: '② 계약체결 (업체 제출)', headClass: 'them', docs: [] },
+    start: { icon: '🚀', title: t === 'goods' ? '③ 납품' : '③ 착수', headClass: 'me', docs: [] },
+    inspect: { icon: '✅', title: '④ 검사·준공', headClass: 'me', docs: [] },
+    pay: { icon: '💵', title: '⑤ 대가청구', headClass: 'them', docs: [] }
+  };
+
+  // ─── ① 계약 전 ───
+  if (o.has('suuie') || a <= 20000000) {
+    stages.pre.docs.push({ name: '수의계약 요청 사유서', desc: '담당-팀장-부서장 결재', tag: 'special', label: '수의', owner: 'me', formId: 'suuie' });
+  }
+  if (o.has('outside')) stages.pre.docs.push({ name: '관외업체 선정 사유서', desc: '검토자·확인자 서명', tag: 'special', label: '관외', owner: 'me', formId: 'outside' });
+  if (o.has('consult')) stages.pre.docs.push({ name: '계약부서 협의 결과 보고', desc: '협의 사항 정리', tag: 'consult-item', label: '협의', owner: 'me' });
+  stages.pre.docs.push({ name: '견적서', desc: '업체 견적 양식', tag: 'required', label: typeWord, owner: 'me', formId: 'estimate' });
+
+  if (t === 'construction') {
+    stages.pre.docs.push({ name: '시방서·설계도서', desc: '공사 사양 명세', tag: 'required', label: '공사', owner: 'me' });
+    stages.pre.docs.push({ name: '산출내역서', desc: '단가·수량·금액', tag: 'required', label: '공사', owner: 'me' });
+    stages.pre.docs.push({ name: '인력·장비 투입계획서', desc: '기술자 배치기준', tag: 'required', label: '공사', owner: 'me' });
+    stages.pre.docs.push({ name: '안전보건관리 계획서', desc: '산업안전보건 준수', tag: 'required', label: '공사', owner: 'me' });
+  } else if (t === 'service') {
+    stages.pre.docs.push({ name: '과업지시서', desc: '용역 범위·결과물', tag: 'required', label: '용역', owner: 'me' });
+    stages.pre.docs.push({ name: '산출내역서', desc: '단가·수량·금액', tag: 'required', label: '용역', owner: 'me' });
+  } else {
+    stages.pre.docs.push({ name: '물품 규격서', desc: '품목·사양 명세', tag: 'required', label: '물품', owner: 'me' });
+  }
+  stages.pre.docs.push({ name: '원인행위 요청서', desc: '이호조 시스템 등록', tag: 'required', label: '이호조', owner: 'me' });
+
+  // ─── ② 계약체결 ───
+  stages.sign.docs.push({ name: '계약체결 필요서류 목록', desc: '전체 제출서류 안내표', tag: 'required', label: '안내', owner: 'me', formId: 'contract-docs' });
+  stages.sign.docs.push({ name: '사업자등록증 사본', desc: '원본대조필 인감날인', tag: 'common', label: '공통', owner: 'vendor' });
+  stages.sign.docs.push({ name: '통장 사본', desc: '대금 입금용', tag: 'common', label: '공통', owner: 'vendor' });
+  stages.sign.docs.push({ name: '인감증명서', desc: '인감 상이 시 사용인감계', tag: 'common', label: '공통', owner: 'vendor' });
+  stages.sign.docs.push({ name: '사용인감계', desc: '인감 상이 시 첨부', tag: 'common', label: '공통', owner: 'vendor', formId: 'inkam' });
+  if (o.has('corp')) {
+    stages.sign.docs.push({ name: '법인등기부등본', desc: '당일 발급본', tag: 'common', label: '법인', owner: 'vendor' });
+    stages.sign.docs.push({ name: '법인인감증명서', desc: '법인사업자', tag: 'common', label: '법인', owner: 'vendor' });
+  }
+  if (t === 'construction') {
+    stages.sign.docs.push({ name: '건설업등록증 사본', desc: a >= 15000000 ? '1,500만원↑ 면허확인' : '공사 필수', tag: 'required', label: '공사', owner: 'vendor' });
+  } else if (t === 'service') {
+    stages.sign.docs.push({ name: '관련 업 등록증', desc: '허가·인가·면허', tag: 'required', label: '용역', owner: 'vendor' });
+  }
+  stages.sign.docs.push({ name: typeWord + '입찰유의서 첨부생략 서약서', desc: '인감 날인', tag: 'required', label: typeWord, owner: 'vendor', formId: 'omit-pledge' });
+  if (a >= 10000000) stages.sign.docs.push({ name: '정부수입인지', desc: '홈택스 납부', tag: 'conditional', label: '1천↑', owner: 'vendor' });
+  if (a < 50000000) {
+    stages.sign.docs.push({ name: '계약보증금 면제 각서', desc: rateStr + '%', tag: 'conditional', label: '5천↓', owner: 'vendor', formId: 'bond-waiver' });
+  } else {
+    stages.sign.docs.push({ name: '계약보증증권 (' + rateStr + '%)', desc: 'G2B 응답 시', tag: 'required', label: '5천↑', owner: 'vendor' });
+  }
+  stages.sign.docs.push({ name: '청렴계약 이행서약서', desc: '인감 날인', tag: 'common', label: '공통', owner: 'vendor', formId: 'integrity' });
+  if (o.has('suuie') || a <= 20000000) {
+    stages.sign.docs.push({ name: '수의계약 각서', desc: '결격사유 미해당', tag: 'special', label: '수의', owner: 'vendor', formId: 'suuie-pledge' });
+    stages.sign.docs.push({ name: '수의계약 체결제한 확인서', desc: '친인척 결격 점검', tag: 'special', label: '수의', owner: 'vendor', formId: 'suuie-cert' });
+  }
+
+  // ─── ③ 착수 / 납품 ───
+  if (t === 'construction') {
+    stages.start.docs.push({ name: '착공계', desc: '착수일 엄수·감독관 경유', tag: 'required', label: '공사', owner: 'me', formId: 'start' });
+    stages.start.docs.push({ name: '현장대리인 선임계', desc: '책임기술자 지정', tag: 'required', label: '공사', owner: 'me' });
+    stages.start.docs.push({ name: '예정공정표', desc: '공정별 일정', tag: 'required', label: '공사', owner: 'me', formId: 'schedule' });
+  } else if (t === 'service') {
+    stages.start.docs.push({ name: '착수신고서', desc: '감독관 경유', tag: 'required', label: '용역', owner: 'me', formId: 'start' });
+    stages.start.docs.push({ name: '책임기술자 선임계', desc: '재직·자격증', tag: 'required', label: '용역', owner: 'me' });
+    stages.start.docs.push({ name: '용역공정예정표', desc: '과업별 일정', tag: 'required', label: '용역', owner: 'me', formId: 'schedule' });
+  } else {
+    stages.start.docs.push({ name: 'G2B 납품확인요청', desc: '납품 완료 시', tag: 'required', label: '물품', owner: 'me' });
+    stages.start.docs.push({ name: '납품 사진', desc: '검수 증빙', tag: 'required', label: '물품', owner: 'me' });
+    stages.start.docs.push({ name: '납품내역서', desc: '제품·수량·단가', tag: 'required', label: '물품', owner: 'me', formId: 'delivery' });
+  }
+
+  // ─── ④ 검사·준공 ───
+  if (t === 'construction') {
+    stages.inspect.docs.push({ name: '준공계', desc: '준공일 엄수', tag: 'required', label: '공사', owner: 'me', formId: 'completion' });
+    stages.inspect.docs.push({ name: '준공검사원', desc: '하자책임 서약', tag: 'required', label: '공사', owner: 'me', formId: 'completion-cert' });
+    stages.inspect.docs.push({ name: '준공(정산)내역서', desc: '변경된 내역', tag: 'required', label: '공사', owner: 'me' });
+    stages.inspect.docs.push({ name: '준공정산합의서', desc: '금액 변동 시', tag: 'conditional', label: '정산', owner: 'me', formId: 'settlement' });
+    stages.inspect.docs.push({ name: '공정별 사진(전-중-후)', desc: '준공 증빙', tag: 'required', label: '공사', owner: 'me' });
+    if (a >= 30000000) stages.inspect.docs.push({ name: '검사조서(팀장+회계팀장)', desc: '서명·날인 必', tag: 'consult-item', label: '협의', owner: 'me' });
+  } else if (t === 'service') {
+    stages.inspect.docs.push({ name: '완료신고서(준공계)', desc: '완료일 엄수', tag: 'required', label: '용역', owner: 'me', formId: 'completion' });
+    stages.inspect.docs.push({ name: '준공검사원', desc: '하자책임 서약', tag: 'required', label: '용역', owner: 'me', formId: 'completion-cert' });
+    stages.inspect.docs.push({ name: '준공내역서', desc: '과업 이행분', tag: 'required', label: '용역', owner: 'me' });
+    stages.inspect.docs.push({ name: '정산합의서', desc: '금액 변동 시', tag: 'conditional', label: '정산', owner: 'me', formId: 'settlement' });
+    if (a >= 30000000) stages.inspect.docs.push({ name: '검사조서(팀장+회계팀장)', desc: '서명·날인 必', tag: 'consult-item', label: '협의', owner: 'me' });
+  } else {
+    stages.inspect.docs.push({ name: '물품 검사(수)조서', desc: '납품 후 7일 내', tag: 'required', label: '물품', owner: 'me', formId: 'inspection-goods' });
+    if (a >= 30000000) stages.inspect.docs.push({ name: '회계팀장 입회 확인', desc: '팀장+회계 입회', tag: 'consult-item', label: '협의', owner: 'me' });
+  }
+
+  // ─── ⑤ 대가청구 ───
+  stages.pay.docs.push({ name: '대금청구서', desc: '계약·청구·계좌', tag: 'required', label: '공통', owner: 'vendor', formId: 'payment' });
+  stages.pay.docs.push({ name: '전자세금계산서', desc: '직접 발행', tag: 'required', label: '공통', owner: 'vendor' });
+  stages.pay.docs.push({ name: '4대보험 완납증명', desc: '고용·산재 포함', tag: 'required', label: '공통', owner: 'vendor' });
+  if (!o.has('suuie') && t !== 'goods') stages.pay.docs.push({ name: '국세·지방세 완납증명', desc: '수의 제외', tag: 'required', label: '경쟁', owner: 'vendor' });
+  if (a >= 20000000 && t !== 'goods') stages.pay.docs.push({ name: '지역개발채권 매입필증', desc: '1.5%(청구시마다)', tag: 'required', label: '2천↑', owner: 'vendor' });
+  if (t === 'construction') {
+    if (a > 20000000) stages.pay.docs.push({ name: '하자보수증권', desc: '검사완료일부터', tag: 'required', label: '공사', owner: 'vendor' });
+    else stages.pay.docs.push({ name: '하자이행각서', desc: '2천↓ 대체', tag: 'conditional', label: '공사', owner: 'vendor' });
+  } else if (t === 'goods') {
+    if (a >= 30000000) stages.pay.docs.push({ name: '하자보수보증서', desc: '3천↑ 정식보증', tag: 'required', label: '물품', owner: 'vendor' });
+    else stages.pay.docs.push({ name: '하자보수 각서', desc: '3천↓ 각서', tag: 'conditional', label: '물품', owner: 'vendor' });
+  }
+
+  // 렌더링
+  var totalCount = 0, html = '';
+  var keys = ['pre', 'sign', 'start', 'inspect', 'pay'];
+  for (var k = 0; k < keys.length; k++) {
+    var key = keys[k];
+    var s = stages[key];
+    totalCount += s.docs.length;
+    html += '<div class="doc-stage">' +
+      '<div class="doc-stage-head ' + s.headClass + '">' +
+      '<span>' + s.icon + ' ' + s.title + '</span>' +
+      '<span class="doc-stage-count">' + s.docs.length + '건</span>' +
+      '</div>' +
+      '<div class="doc-list">';
+
+    for (var i = 0; i < s.docs.length; i++) {
+      var d = s.docs[i];
+      var ownerLabel = d.owner === 'me' ? '나' : d.owner === 'vendor' ? '업체' : '계약';
+      var hasDownload = !!d.formId;
+      var nameClass = hasDownload ? 'doc-name with-download' : 'doc-name';
+      var dlBtn = hasDownload
+        ? '<button class="doc-download-btn" data-form-id="' + d.formId + '" title="' + escapeHtml(d.name) + ' 다운로드">📥</button>'
+        : '';
+      html += '<div class="doc-item ' + d.tag + '">' +
+        '<div class="doc-actions">' + dlBtn + '<span class="doc-owner ' + d.owner + '">' + ownerLabel + '</span></div>' +
+        '<div class="' + nameClass + '">' + escapeHtml(d.name) + '</div>' +
+        '<div class="doc-desc">' + escapeHtml(d.desc) + '</div>' +
+        '<span class="doc-tag ' + d.tag + '">' + d.label + '</span>' +
+        '</div>';
+    }
+    html += '</div></div>';
+  }
+  document.getElementById('docs-grid').innerHTML = html;
+  document.getElementById('docs-total').textContent = '(총 ' + totalCount + '건)';
+
+  // 다운로드 버튼 이벤트 바인딩 (innerHTML 다음 즉시)
+  var dlBtns = document.querySelectorAll('#docs-grid .doc-download-btn');
+  for (var b = 0; b < dlBtns.length; b++) {
+    dlBtns[b].addEventListener('click', function(e) {
+      e.stopPropagation();
+      var fid = this.getAttribute('data-form-id');
+      openForm(fid);
+    });
+  }
+}
+
+// ═══════════════════════════════════════════════════
+// 서식 모달
+// ═══════════════════════════════════════════════════
+var FORM_TITLES = {
+  estimate: '견적서',
+  suuie: '수의계약 요청 사유서',
+  'suuie-cert': '수의계약 체결제한 여부 확인서',
+  'suuie-pledge': '수의계약 각서',
+  outside: '관외업체 선정 사유서',
+  'bond-waiver': '계약보증금 면제에 따른 각서',
+  integrity: '청렴계약 이행서약서',
+  'omit-pledge': '입찰유의서 및 계약일반조건 첨부생략 서약서',
+  inkam: '사용인감계',
+  'contract-docs': '계약체결 필요서류 목록',
+  start: '착공계',
+  schedule: '공정예정표',
+  completion: '준공계',
+  'completion-cert': '준공검사원',
+  settlement: '정산합의서',
+  delivery: '납품내역서',
+  'inspection-goods': '물품 검사(수)조서',
+  payment: '대금청구서'
+};
+
+function openForm(formId) {
+  if (!formId || !FORM_TITLES[formId]) {
+    alert('지원하지 않는 서식입니다: ' + formId);
+    return;
+  }
+  currentFormId = formId;
+  var i = getInfo();
+  var title = FORM_TITLES[formId];
+  if (formId === 'start') title = i.typeKey === 'construction' ? '착공계' : '착수신고서';
+  if (formId === 'schedule') title = i.typeKey === 'construction' ? '공사예정공정표' : '용역예정공정표';
+  document.getElementById('modal-title').textContent = title;
+  document.getElementById('modal-body').innerHTML = generateForm(formId, i);
+  document.getElementById('modal-overlay').classList.add('active');
+}
+
+function closeModal() {
+  document.getElementById('modal-overlay').classList.remove('active');
+  currentFormId = '';
+}
+
+// ═══════════════════════════════════════════════════
+// 서식 생성기 (자료 기반)
+// ═══════════════════════════════════════════════════
+function generateForm(formId, i) {
+  var typeWord = i.typeKey === 'construction' ? '공사' : i.typeKey === 'service' ? '용역' : '물품';
+  var nameLabel = i.typeKey === 'construction' ? '공사명' : i.typeKey === 'service' ? '용역명' : '물품명';
+  var supervisorBox =
+    '<table class="supervisor-table">' +
+    '<tr><th colspan="2" style="background:#E5E7EB;">감독관 경유</th></tr>' +
+    '<tr><th>소속</th><td>' + v(i.dept,'&nbsp;') + '</td></tr>' +
+    '<tr><th>직급</th><td>' + v(i.officerRank,'&nbsp;') + '</td></tr>' +
+    '<tr><th>성명</th><td>' + v(i.officerName,'&nbsp;') + ' (인)</td></tr>' +
+    '</table>';
+
+  // 견적서
+  if (formId === 'estimate') {
+    return '<div class="print-doc">' +
+      '<h1 class="doc-title" style="letter-spacing:12px;">견 적 서</h1>' +
+      '<table class="form-table">' +
+      '<tr><th style="width:18%;">' + nameLabel + '</th><td colspan="3">' + v(i.name) + '</td></tr>' +
+      '<tr><th>견적금액</th><td colspan="3" style="font-weight:700;">' + i.amountStr + ' (금 ' + i.amountHangul + ')<br><span style="font-size:11px; font-weight:400; color:#666;">※ 부가가치세 포함</span></td></tr>' +
+      '<tr><th>이행기간</th><td colspan="3">' + i.sDateStr + ' ~ ' + i.eDateStr + '</td></tr>' +
+      '</table>' +
+      '<table class="form-table">' +
+      '<tr><th style="width:6%;">No.</th><th style="width:34%;">품 명</th><th style="width:18%;">규 격</th><th style="width:8%;">수량</th><th style="width:17%;">단가</th><th style="width:17%;">금액</th></tr>' +
+      '<tr><td style="text-align:center;">1</td><td>' + v(i.name) + '</td><td style="text-align:center;">-</td><td style="text-align:center;">1</td><td style="text-align:right;">' + i.amount.toLocaleString('ko-KR') + '</td><td style="text-align:right;">' + i.amount.toLocaleString('ko-KR') + '</td></tr>' +
+      '<tr><th colspan="5" style="text-align:right;">합 계</th><td style="text-align:right; font-weight:700;">' + i.amountStr + '</td></tr>' +
+      '</table>' +
+      '<p style="margin-top:14px;">위 금액을 견적합니다.</p>' +
+      '<div class="doc-date">' + today() + '</div>' +
+      '<div class="doc-signer-block">' +
+      '<p>상  호 : ' + v(i.vendor) + '</p>' +
+      '<p>대표자 : ' + v(i.rep) + ' (인)</p>' +
+      '<p>사업자등록번호 : ' + v(i.bizNum) + '</p>' +
+      '<p>주  소 : ' + v(i.address) + '</p>' +
+      '<p>전  화 : ' + v(i.phone) + '</p>' +
+      '</div>' +
+      '<div class="doc-recipient">화성시 (분임)재무관 귀하</div>' +
+      '</div>';
+  }
+
+  // 수의계약 요청 사유서
+  if (formId === 'suuie') {
+    return '<div class="print-doc">' +
+      '<div class="doc-subtitle">■ 수의계약 운영요령 [별지 제5호서식]</div>' +
+      '<h1 class="doc-title" style="letter-spacing:6px;">수의계약 요청 사유서</h1>' +
+      '<table class="form-table">' +
+      '<tr><th style="width:22%;">계약건명</th><td>「' + v(i.name) + '」 ' + typeWord + '</td></tr>' +
+      '<tr><th>소요예산</th><td>' + i.amountStr + ' (금 ' + i.amountHangul + ')</td></tr>' +
+      '<tr><th>계약업체</th><td>' + v(i.vendor) + '<br>(사업자등록번호 : ' + v(i.bizNum) + ')</td></tr>' +
+      '<tr><th>수의계약<br>법적근거</th><td>「지방자치단체를 당사자로 하는 계약에 관한 법률」 시행령<br>제25조(수의계약에 의할 수 있는 경우) 제1항 제5호</td></tr>' +
+      '<tr><th>수의계약<br>사 유</th><td>' +
+      '<p>○ 본 사업은 ' + v(i.name,'(사업명)') + '을(를) 위한 ' + typeWord + '으로, 「지방자치단체를 당사자로 하는 계약에 관한 법률 시행령」 제25조에 따른 추정가격 ' + fmtShort(i.amount) + ' 이하의 ' + typeWord + ' 계약에 해당하여 수의계약이 가능한 경우임.</p>' +
+      '<br><p>○ 위 업체(' + v(i.vendor,'(업체명)') + ')는 ' + v(i.industry,'(해당 분야)') + ' 분야 전문성을 보유한 업체로, 본 사업 수행에 필요한 실무경험과 역량을 갖추고 있음.</p>' +
+      '<br><p>○ 본 사업의 원활한 추진을 위해 해당 업체를 선정하여 수의계약을 진행하고자 함.</p>' +
+      '</td></tr>' +
+      '</table>' +
+      '<div class="approval-line">' +
+      '<p>담  당 : 주무관   직급 : ' + v(i.officerRank,'________') + '   성명 : ' + v(i.officerName,'________') + ' (서명 또는 인)</p>' +
+      '<p>팀  장 : ' + v(i.dept,'________') + '장   직급 : ' + v(i.leaderRank,'________') + '   성명 : ' + v(i.leaderName,'________') + ' (서명 또는 인)</p>' +
+      '<p>부서장 : 부서장   직급 : ' + v(i.headRank,'________') + '   성명 : ' + v(i.headName,'________') + ' (서명 또는 인)</p>' +
+      '</div>' +
+      '<p style="margin-top:14px; text-align:center; font-weight:700;">상기와 같이 수의계약 요청서를 제출합니다.</p>' +
+      '<div class="doc-date">' + today() + '</div>' +
+      '<div class="doc-recipient">화성시 재무관(분임재무관) 귀하</div>' +
+      '</div>';
+  }
+
+  // 수의계약 체결제한 확인서
+  if (formId === 'suuie-cert') {
+    return '<div class="print-doc">' +
+      '<h1 class="doc-title" style="letter-spacing:4px;">수의계약 체결제한 여부 확인서</h1>' +
+      '<table class="form-table">' +
+      '<tr><th style="width:22%;">업체명</th><td>' + v(i.vendor) + '</td><th style="width:14%;">대표자</th><td>' + v(i.rep) + '</td></tr>' +
+      '<tr><th>주  소</th><td colspan="3">' + v(i.address) + '</td></tr>' +
+      '<tr><th>사업자등록번호</th><td>' + v(i.bizNum) + '</td><th>업종(등록)</th><td>' + v(i.industry) + '</td></tr>' +
+      '<tr><th>계약건명</th><td colspan="3">' + v(i.name) + '</td></tr>' +
+      '<tr><th>계약금액</th><td colspan="3">' + i.amountStr + '</td></tr>' +
+      '</table>' +
+      '<p style="margin:16px 0;">상기 본인(법인)은 화성시와 위 ' + typeWord + ' 수의계약을 체결함에 있어, 아래 결격사유 중 어느 사유에도 해당하지 않음을 확인합니다.</p>' +
+      '<div class="section-heading">[수의계약 결격사유]</div>' +
+      '<ul class="doc-list-disc">' +
+      '<li>견적서 제출 마감일 현재 부도·파산·해산·영업정지 등이 확정된 자</li>' +
+      '<li>입찰참가자격 제한기간 중에 있는 자</li>' +
+      '<li>부정당업자 제재 처분 후 6개월이 지나지 아니한 자</li>' +
+      '<li>' + typeWord + '의 경우 기술자 보유현황이 관련법령에 따른 업종등록 기준에 미달하는 자</li>' +
+      '<li>최근 3개월 이내 10일 이상 지연배상금 부과 등 신용이 떨어진 자</li>' +
+      '<li>지방자치단체의 장 또는 지방의회의원의 배우자·직계존비속인 사업자</li>' +
+      '</ul>' +
+      '<p style="margin-top:12px;">※ 위 사실이 차후 발견될 경우 계약의 해지(해제) 및 부정당업자 제재처분을 받아도 하등의 이의를 제기하지 않겠습니다.</p>' +
+      '<div class="doc-date">' + today() + '</div>' +
+      '<div class="doc-signer-block">' +
+      '<p>업체명 : ' + v(i.vendor) + '</p>' +
+      '<p>대표자 : ' + v(i.rep) + ' (인)</p>' +
+      '</div>' +
+      '<div class="doc-recipient">화성시 (분임)재무관 귀하</div>' +
+      '</div>';
+  }
+
+  // 수의계약 각서
+  if (formId === 'suuie-pledge') {
+    return '<div class="print-doc">' +
+      '<h1 class="doc-title" style="letter-spacing:14px;">수의계약 각서</h1>' +
+      '<table class="form-table">' +
+      '<tr><th style="width:18%;">계약명</th><td colspan="3">' + v(i.name) + '</td></tr>' +
+      '<tr><th>업체명</th><td>' + v(i.vendor) + '</td><th style="width:14%;">대표자</th><td>' + v(i.rep) + '</td></tr>' +
+      '<tr><th>사업자등록번호</th><td>' + v(i.bizNum) + '</td><th>계약금액</th><td>' + i.amountStr + '</td></tr>' +
+      '<tr><th>소재지</th><td colspan="3">' + v(i.address) + '</td></tr>' +
+      '</table>' +
+      '<p style="margin: 16px 0; line-height: 1.9;">상기 본인(법인)은 화성시와 위 ' + typeWord + ' 수의계약을 체결함에 있어, 「지방자치단체를 당사자로 하는 계약에 관한 법률」 및 같은 법 시행령에서 정한 수의계약 결격사유에 해당하지 아니함을 확약하며, 다음 사항을 각서합니다.</p>' +
+      '<ol style="margin: 10px 0 10px 22px; line-height: 1.9;">' +
+      '<li>견적서 제출 마감일 현재 부도·파산·해산·영업정지 등이 확정되지 않은 자이며, 입찰참가자격 제한기간 중에 있지 아니합니다.</li>' +
+      '<li>부정당업자 제재 처분 후 6개월이 지난 자이며, 본 계약과 관련하여 어떠한 결격사유에도 해당하지 아니합니다.</li>' +
+      '<li>지방자치단체의 장 또는 지방의회의원의 배우자·직계존비속이 아니며, 해당 단체장·의원이 자본금 50% 이상을 소유한 사업자가 아닙니다.</li>' +
+      '<li>위 각서 내용이 사실과 다른 것으로 판명될 경우 계약의 해지(해제) 및 부정당업자 제재처분을 받아도 하등의 이의를 제기하지 않겠습니다.</li>' +
+      '</ol>' +
+      '<p style="margin: 14px 0; text-align:center; font-weight:600;">위와 같이 각서합니다.</p>' +
+      '<div class="doc-date">' + today() + '</div>' +
+      '<div class="doc-signer-block">' +
+      '<p>주  소 : ' + v(i.address) + '</p>' +
+      '<p>업체명 : ' + v(i.vendor) + '</p>' +
+      '<p>대표자 : ' + v(i.rep) + ' (인)</p>' +
+      '</div>' +
+      '<div class="doc-recipient">화성시 (분임)재무관 귀하</div>' +
+      '</div>';
+  }
+
+  // 관외업체 선정 사유서
+  if (formId === 'outside') {
+    return '<div class="print-doc">' +
+      '<h1 class="doc-title" style="letter-spacing:8px;">관외 업체 선정 사유서</h1>' +
+      '<table class="form-table">' +
+      '<tr><th style="width:12%;" rowspan="3">담  당</th><th style="width:13%;">소속</th><td style="width:25%;">' + v(i.dept) + '</td><th style="width:12%;">직급</th><td>' + v(i.officerRank) + '</td></tr>' +
+      '<tr><th>성명</th><td colspan="3">' + v(i.officerName) + '</td></tr>' +
+      '<tr><th>계약건명</th><td colspan="3">' + v(i.name) + ' ' + typeWord + '</td></tr>' +
+      '<tr><th>업  체<br>(소재지)</th><td>' + v(i.vendor) + '<br>(' + v(i.address,'-') + ')</td><th>전화번호</th><td colspan="2">' + v(i.phone,'___-____-____') + '</td></tr>' +
+      '<tr><th>관외<br>업체선정<br>사 유</th><td colspan="4" style="padding:14px;">' +
+      '<p>○ 본 사업자는 ' + v(i.industry,'(해당 분야)') + ' 분야 전문성을 보유한 업체로, ' + v(i.name,'본 사업') + '에 필요한 실무경험과 기획 능력을 동시에 갖추고 있음.</p>' +
+      '<br><p>○ 특히, 해당 분야의 전문 노하우와 검증된 실적을 보유하고 있으며, 이를 본 사업에 효과적으로 접목할 수 있는 전문성을 갖추고 있음.</p>' +
+      '<br><p>○ 관내 업체로는 사업 목적 달성이 어려운 상황이므로 본 사업의 원활한 추진을 위해 해당 관외업체를 선정하고자 함.</p>' +
+      '</td></tr>' +
+      '<tr><td colspan="5" style="text-align:center; padding:18px;">' +
+      '<p style="font-weight:700; margin-bottom:14px;">상기와 같이 검토하였음을 확인합니다.</p>' +
+      '<p style="text-align:right;">검토자 ' + v(i.officerRank,'____________') + '   성명 : ' + v(i.officerName,'____________') + ' (서명 또는 인)</p>' +
+      '<p style="text-align:right; margin-top:6px;">확인자 ' + v(i.leaderRank,'____________') + '   성명 : ' + v(i.leaderName,'____________') + ' (서명 또는 인)</p>' +
+      '<p style="margin-top:14px;">' + today() + '</p>' +
+      '</td></tr>' +
+      '</table>' +
+      '</div>';
+  }
+
+  // 계약보증금 면제 각서
+  if (formId === 'bond-waiver') {
+    var rate = i.typeKey === 'construction' ? 7.5 : 5;
+    var bondAmount = Math.round(i.amount * (rate / 100));
+    return '<div class="print-doc">' +
+      '<h1 class="doc-title" style="letter-spacing:4px;">계약보증금 면제에 따른 각서</h1>' +
+      '<table class="form-table">' +
+      '<tr><th style="width:18%;">계 약 명</th><td colspan="3">' + v(i.name) + '</td></tr>' +
+      '<tr><th>계약 상대자</th><td colspan="3">' + v(i.vendor) + ' (대표자 ' + v(i.rep) + ')</td></tr>' +
+      '<tr><th>계 약 금 액</th><td colspan="3">금 ' + i.amount.toLocaleString('ko-KR') + ' 원 (금 ' + i.amountHangul + ')</td></tr>' +
+      '<tr><th>계약 보증금</th><td colspan="3">계약금액의 ' + rate + '% (₩ ' + bondAmount.toLocaleString('ko-KR') + ')</td></tr>' +
+      '<tr><th>계약 년월일</th><td>' + i.sDateStr + '</td><th>준공기한</th><td>' + i.eDateStr + '</td></tr>' +
+      '</table>' +
+      '<p style="margin:18px 0; line-height:1.9;">상기 계약건에 계약보증금을 「지방자치단체를 당사자로 하는 계약에 관한 법률 시행령」 제53조 제1항 제2호의 규정에 의하여 면제함에 있어 본인이 계약기간 내 계약보증금을 귀 시에 귀속사유가 발생하였을 시에는 즉시 현금으로 납부할 것을 각서합니다.</p>' +
+      '<div class="doc-date">' + today() + '</div>' +
+      '<div class="doc-signer-block">' +
+      '<p>주  소 : ' + v(i.address) + '</p>' +
+      '<p>상  호 : ' + v(i.vendor) + '</p>' +
+      '<p>대표자 : ' + v(i.rep) + ' (인)</p>' +
+      '</div>' +
+      '<div class="doc-recipient">화성시 (분임)재무관 귀하</div>' +
+      '</div>';
+  }
+
+  // 청렴계약 이행서약서
+  if (formId === 'integrity') {
+    return '<div class="print-doc">' +
+      '<h1 class="doc-title" style="letter-spacing:6px;">청렴계약 이행서약서</h1>' +
+      '<table class="form-table">' +
+      '<tr><th style="width:18%;">계약명</th><td>' + v(i.name) + '</td></tr>' +
+      '<tr><th>업체명</th><td>' + v(i.vendor) + ' (대표자 : ' + v(i.rep) + ')</td></tr>' +
+      '</table>' +
+      '<p style="margin:14px 0; line-height:1.8; font-size:12px;">당사는 \'부패 없는 투명한 기업경영과 공정한 행정\'이 사회발전과 국가 경쟁력에 중요한 관건이 됨을 깊이 인식하며, 국제적으로도 OECD 뇌물방지 협약이 발효되었고 부패기업 및 국가에 대한 제재가 강화되는 추세에 맞추어 청렴계약 취지에 적극 호응하여 귀 관서에서 발주하는 모든 공사, 물품 및 용역 등의 입찰에 참여할 때 당사 및 하도급업체의 임직원과 대리인은</p>' +
+      '<ol style="margin: 10px 0 10px 20px; font-size: 12px; line-height: 1.8;">' +
+      '<li>입찰가격의 유지나 특정인의 낙찰을 위한 담합을 하거나 다른 업체와 협정·결의·합의하여 입찰의 자유경쟁을 부당하게 저해하는 일체의 불공정한 행위를 하지 않겠습니다.</li>' +
+      '<li>입찰·낙찰·계약체결 또는 계약이행과정(준공 이후도 포함)에서 관계공무원에게 직·간접적으로 금품·향응 등의 부당한 이익을 제공하지 않겠습니다.</li>' +
+      '<li>입찰·낙찰·계약체결 또는 계약이행과 관련하여 관계공무원에게 금품·향응 등을 제공한 사실이 드러날 경우에는 낙찰자 결정 취소, 계약 취소 또는 해지하여도 감수하겠으며, 민·형사상 이의를 제기하지 않겠습니다.</li>' +
+      '<li>회사 임·직원이 관계 공무원에게 금품·향응 등을 제공하거나 담합 등 불공정 행위를 하지 않도록 회사윤리강령과 사규를 제정토록 노력하겠습니다.</li>' +
+      '<li>공정한 직무수행을 방해하는 알선·청탁을 통하여 입찰 또는 계약과 관련된 특정 정보의 제공을 요구하거나 받지도 않겠습니다.</li>' +
+      '</ol>' +
+      '<p style="margin: 14px 0; font-size: 12px; line-height: 1.8;">위 청렴계약 서약은 상호신뢰를 바탕으로 한 약속으로서 반드시 지킬 것이며, 낙찰자로 결정될 시 본 서약내용을 그대로 계약특수조건으로 계약하여 이행할 것을 서약합니다.</p>' +
+      '<div class="doc-date">' + today() + '</div>' +
+      '<div class="doc-signer-block">' +
+      '<p>서약자 업체명 : ' + v(i.vendor) + '</p>' +
+      '<p>대 표 자 : ' + v(i.rep) + ' (인)</p>' +
+      '</div>' +
+      '<div class="doc-recipient">화성시 (분임)재무관 귀하</div>' +
+      '</div>';
+  }
+
+  // 첨부생략 서약서
+  if (formId === 'omit-pledge') {
+    return '<div class="print-doc">' +
+      '<h1 class="doc-title" style="letter-spacing:4px; font-size:18px;">' + typeWord + '입찰유의서 및 ' + typeWord + '계약일반조건 첨부생략 서약서</h1>' +
+      '<div class="doc-info">' +
+      '<p>○ 계 약 명 : ' + v(i.name) + '</p>' +
+      '<p>○ 업 체 명 : ' + v(i.vendor) + '   대표자 : ' + v(i.rep) + '</p>' +
+      '</div>' +
+      '<p style="margin: 18px 0; line-height: 1.9; font-size: 12.5px;">발주기관에서 발주한 상기 ' + typeWord + '에 대하여 「지방자치단체를 당사자로 하는 계약에 관한 법률 시행규칙」 제39조 제1항 및 제2항의 규정에 정한 입찰 및 계약에 관한 서류와 내용을 숙지하고 계약서류에 첨부할 ' + typeWord + '입찰유의서 및 ' + typeWord + '계약 일반조건은 회계 예규로 시행된 ' + typeWord + '입찰유의서 및 ' + typeWord + '계약 일반조건이 본 계약에 적용됨을 인정하고 상기 ' + typeWord + '입찰유의서 및 ' + typeWord + '계약 일반조건 첨부를 생략함에 있어 이의 없음을 서약합니다.</p>' +
+      '<div class="doc-date">' + today() + '</div>' +
+      '<div class="doc-signer-block">' +
+      '<p>서약자 업체명 : ' + v(i.vendor) + '</p>' +
+      '<p>대 표 자 : ' + v(i.rep) + ' (인)</p>' +
+      '</div>' +
+      '<div class="doc-recipient">화성시 (분임)재무관 귀하</div>' +
+      '</div>';
+  }
+
+  // 사용인감계
+  if (formId === 'inkam') {
+    return '<div class="print-doc">' +
+      '<h1 class="doc-title" style="letter-spacing:14px;">사 용 인 감 계</h1>' +
+      '<table class="form-table">' +
+      '<tr><th style="width:18%;">계약명</th><td colspan="3">' + v(i.name) + '</td></tr>' +
+      '<tr><th>업체명</th><td>' + v(i.vendor) + '</td><th style="width:14%;">대표자</th><td>' + v(i.rep) + '</td></tr>' +
+      '<tr><th>사업자등록번호</th><td colspan="3">' + v(i.bizNum) + '</td></tr>' +
+      '<tr><th>주  소</th><td colspan="3">' + v(i.address) + '</td></tr>' +
+      '</table>' +
+      '<p style="margin: 18px 0; line-height: 1.9; font-size: 12.5px;">상기 본인(법인)은 「' + v(i.name,'(계약명)') + '」 ' + typeWord + ' 계약과 관련하여, 인감증명서에 등록된 인감 대신 아래 표시된 사용인감을 본 계약 관련 서류에 사용함을 신고하며, 본 사용인감의 사용에 따른 모든 권리·의무는 등록 인감과 동일한 효력이 있음을 확인합니다.</p>' +
+      '<table class="form-table" style="margin-top:20px;">' +
+      '<tr><th style="width:50%; height:120px; text-align:center;">등 록 인 감<br><br><span style="font-size:10px; color:#666;">(인감증명서 인감)</span></th><th style="text-align:center;">사 용 인 감<br><br><span style="font-size:10px; color:#666;">(실제 사용 인감)</span></th></tr>' +
+      '<tr><td style="height:140px; text-align:center; vertical-align:middle;"><span style="color:#999; font-size:11px;">(여기에 등록 인감 날인)</span></td><td style="text-align:center; vertical-align:middle;"><span style="color:#999; font-size:11px;">(여기에 사용 인감 날인)</span></td></tr>' +
+      '</table>' +
+      '<div class="doc-date">' + today() + '</div>' +
+      '<div class="doc-signer-block">' +
+      '<p>신고인 업체명 : ' + v(i.vendor) + '</p>' +
+      '<p>대 표 자 : ' + v(i.rep) + ' (인)</p>' +
+      '</div>' +
+      '<div class="doc-recipient">화성시 (분임)재무관 귀하</div>' +
+      '</div>';
+  }
+
+  // 계약체결 필요서류 목록
+  if (formId === 'contract-docs') {
+    var isSuuieCase = state.options.has('suuie') || i.amount <= 20000000;
+    var rateStr2 = i.typeKey === 'construction' ? '7.5%' : '5%';
+    var bondAmt = Math.round(i.amount * (i.typeKey === 'construction' ? 0.075 : 0.05));
+    var rows = [];
+    rows.push('<tr><td style="text-align:center;">1</td><td>사업자등록증 사본</td><td>원본대조필, 인감날인</td></tr>');
+    rows.push('<tr><td style="text-align:center;">2</td><td>통장 사본</td><td>대금 입금용</td></tr>');
+    rows.push('<tr><td style="text-align:center;">3</td><td>인감증명서(원본)</td><td>개인사업자는 전자인감증명서 가능</td></tr>');
+    rows.push('<tr><td style="text-align:center;">4</td><td>사용인감계</td><td>인감 상이 시 첨부</td></tr>');
+    var no = 5;
+    if (state.options.has('corp')) {
+      rows.push('<tr><td style="text-align:center;">' + (no++) + '</td><td>법인등기부등본</td><td>법인사업자, 당일 발급본</td></tr>');
+      rows.push('<tr><td style="text-align:center;">' + (no++) + '</td><td>법인인감증명서</td><td>법인사업자 한정</td></tr>');
+    }
+    if (i.typeKey === 'construction') {
+      rows.push('<tr><td style="text-align:center;">' + (no++) + '</td><td>건설업등록증 사본</td><td>' + (i.amount >= 15000000 ? '1,500만원↑ 면허 확인' : '공사 필수') + '</td></tr>');
+    } else if (i.typeKey === 'service') {
+      rows.push('<tr><td style="text-align:center;">' + (no++) + '</td><td>관련 업 등록증 사본</td><td>사업허가·인가·면허·등록·신고증</td></tr>');
+    }
+    rows.push('<tr><td style="text-align:center;">' + (no++) + '</td><td>' + typeWord + '입찰유의서 첨부생략 서약서</td><td>인감 날인</td></tr>');
+    rows.push('<tr><td style="text-align:center;">' + (no++) + '</td><td>견적서(산출내역서)</td><td>인감 날인</td></tr>');
+    rows.push('<tr><td style="text-align:center;">' + (no++) + '</td><td>청렴계약 이행서약서</td><td>인감 날인</td></tr>');
+    if (isSuuieCase) {
+      rows.push('<tr><td style="text-align:center;">' + (no++) + '</td><td>수의계약 각서</td><td>인감 날인</td></tr>');
+      rows.push('<tr><td style="text-align:center;">' + (no++) + '</td><td>수의계약 체결제한 확인서</td><td>결격사유 미해당 확인</td></tr>');
+    }
+    if (i.amount < 50000000) {
+      rows.push('<tr><td style="text-align:center;">' + (no++) + '</td><td>계약보증금 면제 각서</td><td>5천만원 미만</td></tr>');
+    } else {
+      rows.push('<tr><td style="text-align:center;">' + (no++) + '</td><td>계약보증증권 (' + rateStr2 + ')</td><td>G2B 응답 시 (₩ ' + bondAmt.toLocaleString('ko-KR') + ')</td></tr>');
+    }
+    if (i.amount >= 10000000) {
+      rows.push('<tr><td style="text-align:center;">' + (no++) + '</td><td>정부수입인지</td><td>계약금액 1천만원 이상 시</td></tr>');
+    }
+
+    return '<div class="print-doc">' +
+      '<h1 class="doc-title" style="letter-spacing:6px;">계약체결 필요서류 목록</h1>' +
+      '<table class="form-table">' +
+      '<tr><th style="width:18%;">계약명</th><td colspan="3">' + v(i.name) + '</td></tr>' +
+      '<tr><th>계약유형</th><td>' + i.type + '</td><th style="width:14%;">계약금액</th><td>' + i.amountStr + '</td></tr>' +
+      '<tr><th>계약상대자</th><td>' + v(i.vendor) + '</td><th>대표자</th><td>' + v(i.rep) + '</td></tr>' +
+      '<tr><th>계약방식</th><td colspan="3">' + (isSuuieCase ? '수의계약' : (i.amount > 50000000 ? '일반경쟁입찰(G2B)' : '경쟁입찰')) + '</td></tr>' +
+      '</table>' +
+      '<div class="section-heading" style="margin-top:18px;">■ 계약체결 시 제출 서류 (업체 → 계약부서)</div>' +
+      '<table class="form-table">' +
+      '<tr><th style="width:6%;">No.</th><th style="width:44%;">제출서류</th><th>유의사항</th></tr>' +
+      rows.join('') +
+      '</table>' +
+      '<div class="form-note" style="margin-top:14px;">' +
+      '※ 계약 시 유의사항<br>' +
+      '가. 계약보증금은 계약금액의 ' + rateStr2 + ' 이상으로 납부 (5천만원 미만은 면제각서로 갈음)<br>' +
+      '나. 계약금액이 1천만원 이상인 경우 국세청 홈택스에서 인지세 납부 후 G2B 계약체결<br>' +
+      '다. 모든 사본은 \'원본 대조필\' 인감날인 필수, 2장 이상은 페이지 간 \'간인\' 필수' +
+      '</div>' +
+      '<div class="doc-foot-note">' +
+      '※ 제출처 : 화성시 ' + v(i.dept,'(소속 부서)') + '  /  담당자 : ' + v(i.officerRank,'') + ' ' + v(i.officerName,'(담당자)') +
+      '</div>' +
+      '</div>';
+  }
+
+  // 착공계 / 착수신고서
+  if (formId === 'start') {
+    var startTitle = i.typeKey === 'construction' ? '착 공 계' : '착 수 계';
+    var prepEnd = i.typeKey === 'construction' ? '준 공 기 한' : '완 수 기 한';
+    return '<div class="print-doc">' +
+      '<div style="text-align:right; font-size:11px;">(서식1)</div>' +
+      '<h1 class="doc-title" style="letter-spacing:14px;">' + startTitle + '</h1>' +
+      supervisorBox +
+      '<div class="doc-info" style="margin-top:18px;">' +
+      '<p>○ 계 약 명 : ' + v(i.name) + '</p>' +
+      '<p>○ 계 약 금 액 : 금 ' + i.amount.toLocaleString('ko-KR') + ' 원 (금 ' + i.amountHangul + ')</p>' +
+      '<p>○ 계 약 일 자 : ' + i.sDateStr + '</p>' +
+      '<p>○ 착 수 일 자 : ' + i.sDateStr + '</p>' +
+      '<p>○ ' + prepEnd + ' : ' + i.eDateStr + '</p>' +
+      '</div>' +
+      '<p style="margin:18px 0; font-weight:600;">상기와 같이 ' + (i.typeKey === 'construction' ? '착공' : '착수') + '하였기에 ' + (i.typeKey === 'construction' ? '착공계' : '착수계') + '를 제출합니다.</p>' +
+      '<div class="section-heading">첨부</div>' +
+      '<div class="doc-attach">' +
+      '<p>1. ' + (i.typeKey === 'construction' ? '현장대리인 선임계' : '책임기술자 선임계') + ' 1부</p>' +
+      '<p>2. 예정공정표 1부</p>' +
+      '<p>3. 계약내역서 1부</p>' +
+      '</div>' +
+      '<div class="doc-date">' + today() + '</div>' +
+      '<div class="doc-signer-block">' +
+      '<p>회사명 : ' + v(i.vendor) + '</p>' +
+      '<p>주  소 : ' + v(i.address) + '</p>' +
+      '<p>대  표 : ' + v(i.rep) + ' (인)</p>' +
+      '</div>' +
+      '<div class="doc-recipient">화성시 (분임)재무관 귀하</div>' +
+      '</div>';
+  }
+
+  // 공정예정표
+  if (formId === 'schedule') {
+    var scheduleTitle = (i.typeKey === 'construction' ? '공사' : '용역') + '예정공정표';
+    return '<div class="print-doc">' +
+      '<div style="text-align:right; font-size:11px;">(서식1-2)</div>' +
+      '<h1 class="doc-title" style="letter-spacing:6px;">' + scheduleTitle + '</h1>' +
+      '<div class="section-heading">○ 착수신고</div>' +
+      '<div class="reason-content">' +
+      '<p>' + (i.typeKey === 'construction' ? '공 사 명' : '용 역 명') + ' : ' + v(i.name) + '</p>' +
+      '<p>계약금액 : 금 ' + i.amount.toLocaleString('ko-KR') + ' 원 (금 ' + i.amountHangul + ')</p>' +
+      '<p>계약일자 : ' + i.sDateStr + '</p>' +
+      '<p>착수일자 : ' + i.sDateStr + '</p>' +
+      '<p>준공기한 : ' + i.eDateStr + '</p>' +
+      '</div>' +
+      '<div class="section-heading">○ 공 정 표</div>' +
+      '<table class="form-table">' +
+      '<tr><th style="width:25%;">' + (i.typeKey === 'construction' ? '공 종' : '과 업') + '</th><th style="width:12%;">수량</th><th style="width:18%;">전체공정에<br>대한 비율</th><th style="width:30%;">' + (i.typeKey === 'construction' ? '공 사 일 정' : '용 역 일 정') + '</th><th>비고</th></tr>' +
+      '<tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>' +
+      '<tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>' +
+      '<tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>' +
+      '</table>' +
+      '<div class="doc-date">' + today() + '</div>' +
+      '<div class="doc-signer-block">' +
+      '<p>회사명 : ' + v(i.vendor) + '</p>' +
+      '<p>주  소 : ' + v(i.address) + '</p>' +
+      '<p>대  표 : ' + v(i.rep) + ' (인)</p>' +
+      '</div>' +
+      '<div class="doc-recipient">화성시 (분임)재무관 귀하</div>' +
+      '</div>';
+  }
+
+  // 준공계
+  if (formId === 'completion') {
+    return '<div class="print-doc">' +
+      '<div style="text-align:right; font-size:11px;">(서식3)</div>' +
+      '<h1 class="doc-title" style="letter-spacing:14px;">준 공 계</h1>' +
+      supervisorBox +
+      '<div class="doc-info" style="margin-top:18px;">' +
+      '<p>○ ' + (i.typeKey === 'construction' ? '공 사 명' : '계 약 명') + ' : ' + v(i.name) + '</p>' +
+      '<p>○ 계 약 금 액 : 금 ' + i.amount.toLocaleString('ko-KR') + ' 원 (금 ' + i.amountHangul + ')</p>' +
+      '<p>○ 준 공 금 액 : 금 ' + i.amount.toLocaleString('ko-KR') + ' 원 (금 ' + i.amountHangul + ')</p>' +
+      '<p>○ 계 약 일 자 : ' + i.sDateStr + '</p>' +
+      '<p>○ 착 공 일 자 : ' + i.sDateStr + '</p>' +
+      '<p>○ 준 공 기 한 : ' + i.eDateStr + '</p>' +
+      '<p>○ 준 공 일 자 : ' + i.eDateStr + '</p>' +
+      '</div>' +
+      '<p style="margin:18px 0; font-weight:600;">상기와 같이 준공되었기에 준공신고서를 제출합니다.</p>' +
+      '<div class="doc-date">' + today() + '</div>' +
+      '<div class="doc-signer-block">' +
+      '<p>회사명 : ' + v(i.vendor) + '</p>' +
+      '<p>주  소 : ' + v(i.address) + '</p>' +
+      '<p>대  표 : ' + v(i.rep) + ' (인)</p>' +
+      '</div>' +
+      '<div class="doc-recipient">화성시 (분임)재무관 귀하</div>' +
+      '</div>';
+  }
+
+  // 준공검사원
+  if (formId === 'completion-cert') {
+    var insp30 = i.amount >= 30000000 ? '<div class="form-note"><b>※ 3천만원 이상 계약</b> : 검사자(팀장 ' + v(i.leaderName,'________') + ') + 입회자(회계팀장) 서명·날인 必</div>' : '';
+    return '<div class="print-doc">' +
+      '<div style="text-align:right; font-size:11px;">(서식2-2)</div>' +
+      '<h1 class="doc-title" style="letter-spacing:8px;">준 공 검 사 원</h1>' +
+      supervisorBox +
+      '<div class="doc-info" style="margin-top:18px;">' +
+      '<p>○ ' + (i.typeKey === 'construction' ? '공 사 명' : '계 약 명') + ' : ' + v(i.name) + '</p>' +
+      '<p>○ 계 약 금 액 : 금 ' + i.amount.toLocaleString('ko-KR') + ' 원 (금 ' + i.amountHangul + ')</p>' +
+      '<p>○ 준 공 금 액 : 금 ' + i.amount.toLocaleString('ko-KR') + ' 원 (금 ' + i.amountHangul + ')</p>' +
+      '<p>○ 계 약 일 자 : ' + i.sDateStr + '</p>' +
+      '<p>○ 준 공 일 자 : ' + i.eDateStr + '</p>' +
+      '</div>' +
+      '<p style="margin:18px 0; line-height:1.9;">위 ' + typeWord + '을 수행함에 있어 사업부서에서 지시한 대로 약정대로 어김없이 준공하였음을 확약하며, 만일 하자 책임기간 내 ' + typeWord + '의 검사에 관한 하자 발견 시 즉시 변상 또는 재' + typeWord + '할 것을 서약하고 이에 준공검사원을 제출합니다.</p>' +
+      insp30 +
+      '<div class="doc-date">' + today() + '</div>' +
+      '<div class="doc-signer-block">' +
+      '<p>회사명 : ' + v(i.vendor) + '</p>' +
+      '<p>주  소 : ' + v(i.address) + '</p>' +
+      '<p>대  표 : ' + v(i.rep) + ' (인)</p>' +
+      '</div>' +
+      '<div class="doc-recipient">화성시 (분임)재무관 귀하</div>' +
+      '</div>';
+  }
+
+  // 정산합의서
+  if (formId === 'settlement') {
+    return '<div class="print-doc">' +
+      '<div style="text-align:right; font-size:11px;">&lt;서식 2-4&gt;</div>' +
+      '<h1 class="doc-title" style="letter-spacing:14px;">정 산 합 의 서</h1>' +
+      '<div class="doc-info">' +
+      '<p>□ 계 약 명 : ' + v(i.name) + '</p>' +
+      '<p>□ 계약일자 : ' + i.sDateStr + '</p>' +
+      '<p>□ 계약업체 : ' + v(i.vendor) + ' (대표자 ' + v(i.rep) + ')</p>' +
+      '</div>' +
+      '<p style="margin:16px 0; font-weight:600;">「' + v(i.name,'(계약명)') + '」 건에 대하여 아래와 같이 정산하는데 합의합니다.</p>' +
+      '<div class="section-heading">1. 정산합의내역</div>' +
+      '<div class="reason-content">' +
+      '<p>○ 계약금액</p>' +
+      '<table class="form-table" style="margin-left:14px; width:95%;">' +
+      '<tr><th style="width:18%;">&lt;당   초&gt;</th><td>금 ' + i.amount.toLocaleString('ko-KR') + ' 원 (금 ' + i.amountHangul + ')</td></tr>' +
+      '<tr><th>&lt;정   산&gt;</th><td>금 _______________ 원 (금 _________________________)</td></tr>' +
+      '</table>' +
+      '<p style="margin-top:10px;">정산 사유 : _________________________________________________</p>' +
+      '</div>' +
+      '<div class="section-heading">2. 본 정산 합의서에 명시된 이외의 사항은 원 계약서에 의한다.</div>' +
+      '<div class="doc-date">' + today() + '</div>' +
+      '<div class="doc-signer-block">' +
+      '<p>주  소 : ' + v(i.address) + '</p>' +
+      '<p>상  호 : ' + v(i.vendor) + '</p>' +
+      '<p>대표자 : ' + v(i.rep) + ' (인)</p>' +
+      '</div>' +
+      '<div class="doc-recipient">화성시 (분임)재무관 귀하</div>' +
+      '</div>';
+  }
+
+  // 납품내역서
+  if (formId === 'delivery') {
+    return '<div class="print-doc">' +
+      '<h1 class="doc-title" style="letter-spacing:10px;">납 품 내 역 서</h1>' +
+      '<div class="doc-info"><p>계약명 : ' + v(i.name) + '</p></div>' +
+      '<table class="form-table">' +
+      '<tr><th style="width:8%;">연번</th><th style="width:28%;">제 품 명</th><th style="width:18%;">규 격</th><th style="width:12%;">단가</th><th style="width:10%;">수량</th><th style="width:10%;">단위</th><th>금 액</th></tr>' +
+      '<tr><td style="text-align:center;">1</td><td>' + v(i.name) + '</td><td style="text-align:center;">-</td><td style="text-align:right;">' + i.amount.toLocaleString('ko-KR') + '</td><td style="text-align:center;">1</td><td style="text-align:center;">식</td><td style="text-align:right;">' + i.amount.toLocaleString('ko-KR') + '</td></tr>' +
+      '<tr><th colspan="6" style="text-align:right;">총 금 액</th><td style="text-align:right; font-weight:700;">' + i.amountStr + '</td></tr>' +
+      '</table>' +
+      '<div class="doc-date">' + today() + '</div>' +
+      '<div class="doc-signer-block">' +
+      '<p>주  소 : ' + v(i.address) + '</p>' +
+      '<p>업체명 : ' + v(i.vendor) + '</p>' +
+      '<p>대표자 : ' + v(i.rep) + ' (인)</p>' +
+      '</div>' +
+      '</div>';
+  }
+
+  // 물품 검사조서
+  if (formId === 'inspection-goods') {
+    var insp30g = i.amount >= 30000000 ? '<div class="form-note"><b>※ 3천만원 이상 계약</b> : 검사자(팀장) + 입회자(회계팀장) 서명·날인 必</div>' : '';
+    return '<div class="print-doc">' +
+      '<h1 class="doc-title" style="letter-spacing:8px;">물품 검사(수) 조서</h1>' +
+      '<table class="form-table">' +
+      '<tr><th style="width:18%;">계 약 명</th><td colspan="3">' + v(i.name) + '</td></tr>' +
+      '<tr><th>계약상대자</th><td>' + v(i.vendor) + '</td><th style="width:14%;">대표자</th><td>' + v(i.rep) + '</td></tr>' +
+      '<tr><th>계약금액</th><td>' + i.amountStr + '</td><th>납품금액</th><td>' + i.amountStr + '</td></tr>' +
+      '<tr><th>계약일자</th><td>' + i.sDateStr + '</td><th>납품일자</th><td>' + i.eDateStr + '</td></tr>' +
+      '<tr><th>납품기한</th><td>' + i.eDateStr + '</td><th>검사일자</th><td>' + today() + '</td></tr>' +
+      '</table>' +
+      '<div class="section-heading">○ 검사사항</div>' +
+      '<div class="reason-content">' +
+      '<p>위 물품에 대한 납품 및 검사를 마쳤는 바, 계약서·규격서·견적서 및 기타 계약조건의 내용과 같이 납품되었기에 본 조서를 제출합니다.</p>' +
+      '<p>※ 납품 후 7일 이내 작성</p>' +
+      '</div>' +
+      insp30g +
+      '<div class="doc-date">' + today() + '</div>' +
+      '<div class="doc-signer-block">' +
+      '<p>현장감독공무원 : ' + v(i.dept) + '   ' + v(i.officerRank,'') + ' ' + v(i.officerName) + ' (인)</p>' +
+      '<p>검 사 자 : ' + (i.amount >= 30000000 ? v(i.leaderRank,'________') + ' ' + v(i.leaderName,'________') : v(i.officerRank,'') + ' ' + v(i.officerName,'________')) + ' (인)</p>' +
+      (i.amount >= 30000000 ? '<p>입 회 자 : 회계팀장        성명: ________ (인)</p>' : '') +
+      '</div>' +
+      '<div class="doc-recipient">화성시 (분임)재무관 귀하</div>' +
+      '</div>';
+  }
+
+  // 대금청구서
+  if (formId === 'payment') {
+    var dev = i.amount >= 20000000 && i.typeKey !== 'goods' ? ', 지역개발채권 매입필증(1.5%)' : '';
+    return '<div class="print-doc">' +
+      '<h1 class="doc-title" style="letter-spacing:10px;">대 금 청 구 서</h1>' +
+      '<div class="doc-info">' +
+      '<p>○ 계 약 건 명 : ' + v(i.name) + '</p>' +
+      '<p>○ 계 약 금 액 : 금 ' + i.amount.toLocaleString('ko-KR') + ' 원 (₩ ' + i.amount.toLocaleString('ko-KR') + ')</p>' +
+      '<p>○ 청 구 금 액 : 금 ' + i.amount.toLocaleString('ko-KR') + ' 원 (₩ ' + i.amount.toLocaleString('ko-KR') + ')</p>' +
+      '</div>' +
+      '<p style="margin:14px 0;">위와 같이 청구하오니 아래 계좌에 입금하여 주시기 바랍니다.</p>' +
+      '<div class="section-heading">○ 계좌입금내용</div>' +
+      '<table class="form-table">' +
+      '<tr><th style="width:25%;">은 행 명</th><td>____________________</td></tr>' +
+      '<tr><th>계 좌 번 호</th><td>______________________________</td></tr>' +
+      '<tr><th>예 금 주</th><td>' + v(i.vendor) + '</td></tr>' +
+      '</table>' +
+      '<div class="doc-date">' + today() + '</div>' +
+      '<div class="doc-signer-block">' +
+      '<p>위 청구인 (계약자)</p>' +
+      '<p>주  소 : ' + v(i.address) + '</p>' +
+      '<p>상  호 : ' + v(i.vendor) + '</p>' +
+      '<p>성  명 : ' + v(i.rep) + ' (인)</p>' +
+      '<p>전 화 : ' + v(i.phone) + '</p>' +
+      '</div>' +
+      '<div class="doc-recipient">화성시 (분임)재무관 귀하</div>' +
+      '<div class="doc-foot-note">' +
+      '* 첨부 : 통장사본, 국세·지방세 완납증명서, 4대보험 완납증명서, 세금계산서' + dev +
+      '</div>' +
+      '</div>';
+  }
+
+  return '<p style="text-align:center; padding:40px; color:#666;">서식을 찾을 수 없습니다.</p>';
+}
+
+// ═══════════════════════════════════════════════════
+// 다운로드 기능 (순수 Blob API - 라이브러리 의존 없음)
+// ═══════════════════════════════════════════════════
+function makeStandaloneHTML(title, bodyContent) {
+  return '<!DOCTYPE html>\n<html lang="ko">\n<head>\n<meta charset="UTF-8">\n<title>' + escapeHtml(title) + '</title>\n<style>\n' +
+    '@page { size: A4; margin: 20mm 18mm; }\n' +
+    'body { font-family: "Malgun Gothic", "맑은 고딕", serif; padding: 30px; line-height: 1.7; color: black; max-width: 800px; margin: 0 auto; }\n' +
+    '.print-doc h1.doc-title { font-size: 22px; font-weight: 700; text-align: center; margin: 0 0 22px; letter-spacing: 10px; }\n' +
+    '.doc-subtitle { font-size: 11px; color: #555; margin-bottom: 4px; }\n' +
+    'table.form-table { width: 100%; border-collapse: collapse; margin: 14px 0; }\n' +
+    'table.form-table td, table.form-table th { border: 1px solid black; padding: 8px 10px; font-size: 13px; vertical-align: middle; }\n' +
+    'table.form-table th { background: #F3F4F6; font-weight: 600; text-align: center; }\n' +
+    '.supervisor-table { width: 200px; margin-left: auto; margin-right: 0; border-collapse: collapse; }\n' +
+    '.supervisor-table th, .supervisor-table td { border: 1px solid black; padding: 4px 8px; font-size: 11px; text-align: center; }\n' +
+    '.supervisor-table th { background: #F9FAFB; width: 60px; }\n' +
+    '.doc-info { margin: 18px 0; padding-left: 4px; }\n' +
+    '.doc-info p { margin: 5px 0; font-size: 13px; }\n' +
+    '.section-heading { font-weight: 700; margin: 14px 0 6px; font-size: 13.5px; }\n' +
+    '.reason-content { padding-left: 14px; line-height: 1.9; font-size: 12.5px; }\n' +
+    '.reason-content p { margin: 5px 0; }\n' +
+    '.doc-attach { margin: 14px 0; padding-left: 14px; }\n' +
+    '.doc-attach p { margin: 4px 0; font-size: 12.5px; }\n' +
+    '.doc-date { text-align: center; margin: 26px 0 16px; font-size: 13px; }\n' +
+    '.doc-signer-block { margin: 6px 0; padding-left: 50%; font-size: 13px; }\n' +
+    '.doc-signer-block p { margin: 3px 0; }\n' +
+    '.doc-recipient { text-align: center; font-weight: 700; margin-top: 20px; font-size: 14px; padding-top: 12px; }\n' +
+    '.doc-foot-note { font-size: 10.5px; color: #555; margin-top: 10px; padding-top: 6px; border-top: 1px dashed #999; }\n' +
+    'ul.doc-list-disc { margin: 6px 0 6px 22px; }\n' +
+    'ul.doc-list-disc li { margin: 3px 0; font-size: 12.5px; }\n' +
+    '.approval-line { margin: 16px 0; padding: 0 8px; font-size: 13px; line-height: 2; }\n' +
+    '.approval-line p { margin: 2px 0; }\n' +
+    '.form-note { background: #FEF3C7; border-left: 3px solid #F59E0B; padding: 8px 12px; margin: 12px 0; font-size: 11.5px; color: #78350F; }\n' +
+    '@media print { body { padding: 0; max-width: none; } }\n' +
+    '</style>\n</head>\n<body>\n' + bodyContent +
+    '\n<div style="margin-top: 40px; padding-top: 12px; border-top: 1px dashed #999; font-size: 10px; color: #666; text-align: center;">화성시 빅데이터팀 작성 : 신환철 · 전명구 · 이동재 · 김지현 · 지우근 · 이주희</div>\n' +
+    '</body>\n</html>';
+}
+
+function triggerDownload(blob, filename) {
+  var url = URL.createObjectURL(blob);
+  var a = document.createElement('a');
+  a.href = url;
+  a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  setTimeout(function() {
+    if (a.parentNode) document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  }, 100);
+}
+
+function getFormFilename(formId) {
+  var i = getInfo();
+  var titles = {
+    estimate: '견적서', suuie: '수의계약요청사유서', 'suuie-cert': '수의계약체결제한확인서',
+    'suuie-pledge': '수의계약각서', outside: '관외업체선정사유서',
+    'bond-waiver': '계약보증금면제각서', integrity: '청렴계약이행서약서',
+    'omit-pledge': '입찰유의서첨부생략서약서', inkam: '사용인감계',
+    'contract-docs': '계약체결필요서류목록',
+    start: i.typeKey === 'construction' ? '착공계' : '착수신고서',
+    schedule: i.typeKey === 'construction' ? '공사예정공정표' : '용역예정공정표',
+    completion: '준공계', 'completion-cert': '준공검사원',
+    settlement: '정산합의서', delivery: '납품내역서',
+    'inspection-goods': '물품검사조서', payment: '대금청구서'
+  };
+  var name = (i.name || '계약').replace(/[\\\/:*?"<>|]/g, '_').substring(0, 30);
+  return todayShort() + '_' + (titles[formId] || '서식') + '_' + name;
+}
+
+function downloadHTML() {
+  if (!currentFormId) { alert('서식을 먼저 선택해주세요.'); return; }
+  try {
+    var title = document.getElementById('modal-title').textContent;
+    var content = document.getElementById('modal-body').innerHTML;
+    var filename = getFormFilename(currentFormId) + '.html';
+    var html = makeStandaloneHTML(title, content);
+    var blob = new Blob([html], { type: 'text/html;charset=utf-8' });
+    triggerDownload(blob, filename);
+  } catch (err) {
+    alert('다운로드 중 오류: ' + err.message);
+    console.error(err);
+  }
+}
+
+function printForm() {
+  if (!currentFormId) { alert('서식을 먼저 선택해주세요.'); return; }
+  try {
+    var title = document.getElementById('modal-title').textContent;
+    var content = document.getElementById('modal-body').innerHTML;
+    var html = makeStandaloneHTML(title, content);
+    var printWindow = window.open('', '_blank');
+    if (!printWindow) {
+      alert('팝업이 차단되었습니다. 팝업 허용 후 다시 시도해주세요.');
+      return;
+    }
+    printWindow.document.write(html);
+    printWindow.document.close();
+    setTimeout(function() { printWindow.print(); }, 500);
+  } catch (err) {
+    alert('인쇄 중 오류: ' + err.message);
+    console.error(err);
+  }
+}
+
+function downloadAllForms() {
+  try {
+    var i = getInfo();
+    var dlBtns = document.querySelectorAll('#docs-grid .doc-download-btn');
+    var formIds = [];
+    var seen = {};
+    for (var b = 0; b < dlBtns.length; b++) {
+      var fid = dlBtns[b].getAttribute('data-form-id');
+      if (fid && !seen[fid]) { seen[fid] = true; formIds.push(fid); }
+    }
+    if (formIds.length === 0) { alert('다운로드 가능한 서식이 없습니다.'); return; }
+    if (!confirm('현재 계약 조건에 해당하는 서식 ' + formIds.length + '건을 통합 HTML 파일로 다운로드하시겠습니까?')) return;
+
+    var combined = '';
+    for (var k = 0; k < formIds.length; k++) {
+      var content = generateForm(formIds[k], i);
+      var pageBreak = k > 0 ? ' style="page-break-before: always;"' : '';
+      combined += '<div class="form-section"' + pageBreak + '>' + content + '</div>';
+    }
+    var projectName = (i.name || '계약서류').replace(/[\\\/:*?"<>|]/g, '_').substring(0, 30);
+    var filename = todayShort() + '_' + projectName + '_전체서식_' + formIds.length + '건.html';
+    var html = makeStandaloneHTML(projectName + ' 전체 서식 (' + formIds.length + '건)', combined);
+    var blob = new Blob([html], { type: 'text/html;charset=utf-8' });
+    triggerDownload(blob, filename);
+  } catch (err) {
+    alert('전체 다운로드 중 오류: ' + err.message);
+    console.error(err);
+  }
+}
+
+// ═══════════════════════════════════════════════════
+// 복사 / 액션
+// ═══════════════════════════════════════════════════
+function copyText(text, msg) {
+  if (navigator.clipboard && window.isSecureContext) {
+    navigator.clipboard.writeText(text).then(function() { alert(msg); }, function() { fallbackCopy(text, msg); });
+  } else {
+    fallbackCopy(text, msg);
+  }
+}
+
+function fallbackCopy(text, msg) {
+  var ta = document.createElement('textarea');
+  ta.value = text;
+  ta.style.position = 'fixed';
+  ta.style.opacity = '0';
+  document.body.appendChild(ta);
+  ta.select();
+  try { document.execCommand('copy'); alert(msg); }
+  catch (e) { alert('복사에 실패했습니다.'); }
+  document.body.removeChild(ta);
+}
+
+function copyInfo() {
+  var i = getInfo();
+  var projectAmt = parseAmount(document.getElementById('project-amount').value);
+  var negoRate = parseFloat(document.getElementById('nego-rate').value) || 0;
+  var negoCut = Math.round(projectAmt * (negoRate / 100));
+  var negoLine = negoRate > 0
+    ? '사업금액: ' + fmtMoney(projectAmt) + '\n네고율: ' + negoRate + '% (감액 ' + fmtMoney(negoCut) + ')\n'
+    : '';
+  var text = '[계약 정보]\n' +
+    '유형: ' + i.type + '\n' +
+    '계약명: ' + (i.name || '(미입력)') + '\n' +
+    negoLine +
+    '계약금액: ' + i.amountStr + ' (금 ' + i.amountHangul + ')\n' +
+    '계약기간: ' + i.sDateStr + ' ~ ' + i.eDateStr + '\n' +
+    '업체명: ' + (i.vendor || '(미입력)') + '\n' +
+    '대표자: ' + (i.rep || '(미입력)') + '\n' +
+    '사업자등록번호: ' + (i.bizNum || '(미입력)') + '\n' +
+    '\n[담당자]\n' +
+    '부서: ' + (i.dept || '(미입력)') + '\n' +
+    '담당자: ' + i.officerRank + ' ' + (i.officerName || '(미입력)') + '\n' +
+    '팀장: ' + i.leaderRank + ' ' + (i.leaderName || '(미입력)') + '\n' +
+    '부서장: ' + i.headRank + ' ' + (i.headName || '(미입력)');
+  copyText(text, '계약 정보가 복사되었습니다.');
+}
+
+function copyDocs() {
+  var text = '[필요서류 목록]\n\n';
+  var stages = document.querySelectorAll('.doc-stage');
+  for (var s = 0; s < stages.length; s++) {
+    var head = stages[s].querySelector('.doc-stage-head span').textContent;
+    text += '■ ' + head + '\n';
+    var items = stages[s].querySelectorAll('.doc-item');
+    for (var k = 0; k < items.length; k++) {
+      var name = items[k].querySelector('.doc-name').textContent;
+      var desc = items[k].querySelector('.doc-desc').textContent;
+      var owner = items[k].querySelector('.doc-owner').textContent;
+      text += '  ' + (k+1) + '. [' + owner + '] ' + name + ' - ' + desc + '\n';
+    }
+    text += '\n';
+  }
+  copyText(text, '서류목록이 복사되었습니다.');
+}
+
+function copyModalText() {
+  var text = document.getElementById('modal-body').innerText;
+  copyText(text, '서식 내용이 복사되었습니다.');
+}
+
+// ═══════════════════════════════════════════════════
+// 담당자·결재 정보 저장/불러오기 (localStorage)
+// ═══════════════════════════════════════════════════
+var APPROVER_STORAGE_KEY = 'hwaseong_contract_approvers_v1';
+var APPROVER_FIELDS = ['dept','officer-rank','officer-name','leader-rank','leader-name','head-rank','head-name'];
+
+// ═══════════════════════════════════════════════════
+// 사업담당자 주의사항 - 사용자 추가 항목 관리
+// ═══════════════════════════════════════════════════
+var CUSTOM_ALERTS_KEY = 'hwaseong_custom_alerts_v1';
+var editingAlertId = null; // 편집 중인 항목 ID (신규 추가 시 null)
+var selectedAlertType = 'warning';
+
+function loadCustomAlerts() {
+  try {
+    var raw = localStorage.getItem(CUSTOM_ALERTS_KEY);
+    if (!raw) return [];
+    var arr = JSON.parse(raw);
+    return Array.isArray(arr) ? arr : [];
+  } catch (err) {
+    console.warn('주의사항 로드 실패:', err);
+    return [];
+  }
+}
+
+function saveCustomAlerts(alerts) {
+  try {
+    localStorage.setItem(CUSTOM_ALERTS_KEY, JSON.stringify(alerts));
+    return true;
+  } catch (err) {
+    alert('저장 실패: ' + err.message);
+    return false;
+  }
+}
+
+function openAlertEditor(customId) {
+  editingAlertId = customId || null;
+  var titleEl = document.getElementById('alert-editor-title');
+  var iconInput = document.getElementById('alert-icon-input');
+  var textInput = document.getElementById('alert-text-input');
+  var saveBtn = document.getElementById('alert-save-btn');
+
+  if (customId) {
+    // 편집 모드 - 기존 데이터 로드
+    var alerts = loadCustomAlerts();
+    var item = null;
+    for (var i = 0; i < alerts.length; i++) {
+      if (alerts[i].id === customId) { item = alerts[i]; break; }
+    }
+    if (!item) {
+      alert('편집할 항목을 찾을 수 없습니다.');
+      return;
+    }
+    titleEl.textContent = '📝 주의사항 수정';
+    iconInput.value = item.icon || '📌';
+    textInput.value = (item.text || '').replace(/<b>/g, '<b>').replace(/<\/b>/g, '</b>');
+    selectedAlertType = item.type || 'warning';
+    saveBtn.textContent = '💾 수정 저장';
+  } else {
+    // 신규 추가
+    titleEl.textContent = '📝 주의사항 추가';
+    iconInput.value = '📌';
+    textInput.value = '';
+    selectedAlertType = 'warning';
+    saveBtn.textContent = '💾 추가';
+  }
+
+  // 유형 버튼 active 갱신
+  var typeBtns = document.querySelectorAll('.alert-type-btn');
+  for (var b = 0; b < typeBtns.length; b++) {
+    if (typeBtns[b].dataset.type === selectedAlertType) typeBtns[b].classList.add('active');
+    else typeBtns[b].classList.remove('active');
+  }
+  document.getElementById('alert-editor-overlay').classList.add('active');
+  setTimeout(function() { textInput.focus(); }, 100);
+}
+
+function closeAlertEditor() {
+  document.getElementById('alert-editor-overlay').classList.remove('active');
+  editingAlertId = null;
+}
+
+function saveAlertItem() {
+  var icon = document.getElementById('alert-icon-input').value.trim() || '📌';
+  var text = document.getElementById('alert-text-input').value.trim();
+  if (!text) {
+    alert('내용을 입력해주세요.');
+    return;
+  }
+
+  var alerts = loadCustomAlerts();
+
+  if (editingAlertId) {
+    // 수정
+    for (var i = 0; i < alerts.length; i++) {
+      if (alerts[i].id === editingAlertId) {
+        alerts[i].type = selectedAlertType;
+        alerts[i].icon = icon;
+        alerts[i].text = text;
+        alerts[i].updatedAt = new Date().toISOString();
+        break;
+      }
+    }
+  } else {
+    // 신규
+    alerts.push({
+      id: 'alert_' + Date.now() + '_' + Math.random().toString(36).slice(2, 8),
+      type: selectedAlertType,
+      icon: icon,
+      text: text,
+      createdAt: new Date().toISOString()
+    });
+  }
+
+  if (saveCustomAlerts(alerts)) {
+    closeAlertEditor();
+    calculate(); // 화면 갱신
+  }
+}
+
+function editAlertItem(customId) {
+  openAlertEditor(customId);
+}
+
+function deleteAlertItem(customId) {
+  if (!confirm('이 주의사항을 삭제하시겠습니까?')) return;
+  var alerts = loadCustomAlerts();
+  alerts = alerts.filter(function(a) { return a.id !== customId; });
+  if (saveCustomAlerts(alerts)) {
+    calculate();
+  }
+}
+
+function clearCustomAlerts() {
+  var existing = loadCustomAlerts();
+  if (existing.length === 0) {
+    alert('사용자가 추가한 주의사항이 없습니다.');
+    return;
+  }
+  if (!confirm('사용자가 추가한 주의사항 ' + existing.length + '건을 모두 삭제하시겠습니까?\n(자동 표시 항목은 영향받지 않습니다)')) return;
+  try {
+    localStorage.removeItem(CUSTOM_ALERTS_KEY);
+    calculate();
+    alert('🗑️ 사용자 추가 주의사항이 모두 삭제되었습니다.');
+  } catch (err) {
+    alert('삭제 실패: ' + err.message);
+  }
+}
+
+function saveApprovers() {
+  try {
+    var data = {};
+    for (var i = 0; i < APPROVER_FIELDS.length; i++) {
+      var el = document.getElementById(APPROVER_FIELDS[i]);
+      data[APPROVER_FIELDS[i]] = el ? el.value : '';
+    }
+    var allEmpty = true;
+    for (var key in data) { if (data[key] && data[key].trim()) { allEmpty = false; break; } }
+    if (allEmpty) {
+      alert('저장할 담당자 정보가 없습니다.\n부서·담당자·팀장·부서장 정보를 입력 후 저장해주세요.');
+      return;
+    }
+    data._savedAt = new Date().toISOString();
+    localStorage.setItem(APPROVER_STORAGE_KEY, JSON.stringify(data));
+    updateApproverSavedInfo();
+    alert('✅ 담당자·결재 정보가 저장되었습니다.\n다음 접속 시 [불러오기] 버튼으로 복원할 수 있습니다.');
+  } catch (err) {
+    alert('저장에 실패했습니다: ' + err.message + '\n(브라우저 시크릿 모드에서는 저장이 제한될 수 있습니다)');
+  }
+}
+
+function loadApprovers() {
+  try {
+    var raw = localStorage.getItem(APPROVER_STORAGE_KEY);
+    if (!raw) {
+      alert('저장된 담당자 정보가 없습니다.\n먼저 [저장] 버튼으로 정보를 저장해주세요.');
+      return;
+    }
+    var data = JSON.parse(raw);
+    var loaded = 0;
+    for (var i = 0; i < APPROVER_FIELDS.length; i++) {
+      var el = document.getElementById(APPROVER_FIELDS[i]);
+      if (el && data[APPROVER_FIELDS[i]] !== undefined) {
+        el.value = data[APPROVER_FIELDS[i]];
+        if (el.value) loaded++;
+      }
+    }
+    calculate();
+    var savedDate = data._savedAt ? new Date(data._savedAt).toLocaleString('ko-KR') : '';
+    alert('✅ 담당자·결재 정보가 복원되었습니다.\n(저장일시 : ' + savedDate + ', ' + loaded + '개 항목)');
+  } catch (err) {
+    alert('불러오기에 실패했습니다: ' + err.message);
+  }
+}
+
+function clearSavedApprovers() {
+  if (!confirm('저장된 담당자·결재 정보를 삭제하시겠습니까?\n(현재 입력 중인 값은 유지됩니다)')) return;
+  try {
+    localStorage.removeItem(APPROVER_STORAGE_KEY);
+    updateApproverSavedInfo();
+    alert('🗑️ 저장된 담당자 정보가 삭제되었습니다.');
+  } catch (err) {
+    alert('삭제에 실패했습니다: ' + err.message);
+  }
+}
+
+function updateApproverSavedInfo() {
+  var info = document.getElementById('approver-saved-info');
+  if (!info) return;
+  try {
+    var raw = localStorage.getItem(APPROVER_STORAGE_KEY);
+    if (!raw) {
+      info.classList.remove('active');
+      info.innerHTML = '';
+      return;
+    }
+    var data = JSON.parse(raw);
+    var savedDate = data._savedAt ? new Date(data._savedAt).toLocaleString('ko-KR') : '알 수 없음';
+    var name = data['officer-name'] || data['dept'] || '저장됨';
+    info.innerHTML = '💾 <b>저장된 정보 있음</b> · ' + escapeHtml(name) + ' (' + savedDate + ')';
+    info.classList.add('active');
+  } catch (err) {
+    info.classList.remove('active');
+  }
+}
+
+function autoLoadApprovers() {
+  // 페이지 로드 시 저장된 정보가 있으면 자동으로 입력칸에 채움
+  try {
+    var raw = localStorage.getItem(APPROVER_STORAGE_KEY);
+    if (!raw) return;
+    var data = JSON.parse(raw);
+    for (var i = 0; i < APPROVER_FIELDS.length; i++) {
+      var el = document.getElementById(APPROVER_FIELDS[i]);
+      if (el && data[APPROVER_FIELDS[i]] !== undefined && !el.value) {
+        el.value = data[APPROVER_FIELDS[i]];
+      }
+    }
+    updateApproverSavedInfo();
+  } catch (err) {
+    console.warn('담당자 자동 로드 실패:', err);
+  }
+}
+
+function resetForm() {
+  if (!confirm('입력한 내용을 모두 초기화하시겠습니까?')) return;
+  var ids = ['contract-name','start-date','end-date','vendor-name','rep','biz-num','industry','address','phone','dept','officer-rank','officer-name','leader-rank','leader-name','head-rank','head-name'];
+  for (var i = 0; i < ids.length; i++) {
+    var el = document.getElementById(ids[i]);
+    if (el) el.value = '';
+  }
+  document.getElementById('project-amount').value = '20,000,000';
+  document.getElementById('nego-rate').value = '0';
+  document.getElementById('amount-input').value = '20,000,000';
+  document.getElementById('nego-amount').textContent = '감액 0원';
+  state.amount = 20000000;
+  state.options.clear();
+  var optBtns = document.querySelectorAll('.opt-btn');
+  for (var j = 0; j < optBtns.length; j++) optBtns[j].classList.remove('active');
+  var typeBtns = document.querySelectorAll('#type-buttons button');
+  for (var k = 0; k < typeBtns.length; k++) typeBtns[k].classList.remove('active');
+  document.querySelector('[data-type="construction"]').classList.add('active');
+  state.type = 'construction';
+  document.getElementById('amount-display').textContent = fmtShort(state.amount);
+  updateTypeUI();
+  calculate();
+}
+
+// ═══════════════════════════════════════════════════
+// 이벤트 바인딩
+// ═══════════════════════════════════════════════════
+(function() {
+  var typeButtons = document.querySelectorAll('#type-buttons button');
+  for (var i = 0; i < typeButtons.length; i++) {
+    typeButtons[i].addEventListener('click', function() {
+      for (var j = 0; j < typeButtons.length; j++) typeButtons[j].classList.remove('active');
+      this.classList.add('active');
+      state.type = this.dataset.type;
+      updateTypeUI();
+      calculate();
+    });
+  }
+
+  // 사업금액·네고율 → 계약금액 자동 산출
+  function recalcContractAmount() {
+    var projectInput = document.getElementById('project-amount');
+    var negoInput = document.getElementById('nego-rate');
+    var amountInput = document.getElementById('amount-input');
+    var amountDisplay = document.getElementById('amount-display');
+    var negoAmountDisplay = document.getElementById('nego-amount');
+
+    var projectAmt = parseAmount(projectInput.value);
+    var negoRate = parseFloat(negoInput.value) || 0;
+    if (negoRate < 0) negoRate = 0;
+    if (negoRate > 100) negoRate = 100;
+
+    var negoCut = Math.round(projectAmt * (negoRate / 100));
+    var contractAmt = projectAmt - negoCut;
+
+    state.amount = contractAmt;
+    amountInput.value = contractAmt.toLocaleString('ko-KR');
+    amountDisplay.textContent = fmtShort(contractAmt);
+    negoAmountDisplay.textContent = '감액 ' + negoCut.toLocaleString('ko-KR') + '원';
+    calculate();
+  }
+
+  document.getElementById('project-amount').addEventListener('input', function(e) {
+    var amt = parseAmount(e.target.value);
+    e.target.value = amt.toLocaleString('ko-KR');
+    recalcContractAmount();
+  });
+
+  document.getElementById('nego-rate').addEventListener('input', function() {
+    recalcContractAmount();
+  });
+
+  // 빠른 금액 버튼 → 사업금액에 적용
+  var quickBtns = document.querySelectorAll('.quick-btn');
+  for (var q = 0; q < quickBtns.length; q++) {
+    quickBtns[q].addEventListener('click', function() {
+      var amt = parseInt(this.dataset.amount, 10);
+      document.getElementById('project-amount').value = amt.toLocaleString('ko-KR');
+      recalcContractAmount();
+    });
+  }
+
+  var formIds = ['contract-name','start-date','end-date','vendor-name','rep','biz-num','industry','address','phone','dept','officer-rank','officer-name','leader-rank','leader-name','head-rank','head-name'];
+  for (var f = 0; f < formIds.length; f++) {
+    var el = document.getElementById(formIds[f]);
+    if (el) el.addEventListener('input', calculate);
+  }
+
+  var optBtns = document.querySelectorAll('.opt-btn');
+  for (var o = 0; o < optBtns.length; o++) {
+    optBtns[o].addEventListener('click', function() {
+      var opt = this.dataset.opt;
+      if (state.options.has(opt)) { state.options.delete(opt); this.classList.remove('active'); }
+      else { state.options.add(opt); this.classList.add('active'); }
+      calculate();
+    });
+  }
+
+  document.getElementById('modal-overlay').addEventListener('click', function(e) {
+    if (e.target.id === 'modal-overlay') closeModal();
+  });
+
+  // 주의사항 편집 모달 - 외부 클릭 닫기
+  document.getElementById('alert-editor-overlay').addEventListener('click', function(e) {
+    if (e.target.id === 'alert-editor-overlay') closeAlertEditor();
+  });
+
+  // 주의사항 유형 버튼 클릭
+  var alertTypeBtns = document.querySelectorAll('.alert-type-btn');
+  for (var atb = 0; atb < alertTypeBtns.length; atb++) {
+    alertTypeBtns[atb].addEventListener('click', function() {
+      var btns = document.querySelectorAll('.alert-type-btn');
+      for (var b = 0; b < btns.length; b++) btns[b].classList.remove('active');
+      this.classList.add('active');
+      selectedAlertType = this.dataset.type;
+    });
+  }
+
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      closeModal();
+      closeAlertEditor();
+    }
+  });
+
+  updateTypeUI();
+  autoLoadApprovers();
+  calculate();
+})();
+</script>
+
+</body>
+</html>
