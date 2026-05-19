@@ -566,11 +566,11 @@ body.edit-mode #edit-mode-btn {
 .alerts { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 6px; }
 .alerts-disclaimer {
   margin-top: 8px; padding: 6px 9px;
-  font-size: 9.5px; color: var(--text-mute); line-height: 1.5;
-  background: var(--bg); border-radius: 5px;
-  border-left: 3px solid var(--border);
+  font-size: 9.5px; color: var(--consult-red); line-height: 1.5; font-weight: 600;
+  background: var(--consult-red-light); border-radius: 5px;
+  border-left: 3px solid var(--consult-red);
 }
-.alerts-disclaimer b { color: var(--text); }
+.alerts-disclaimer b { color: var(--consult-red); }
 .alert {
   padding: 6px 9px; border-radius: 5px; font-size: 10.5px;
   display: flex; gap: 6px; align-items: flex-start;
@@ -3057,43 +3057,52 @@ function makeStandaloneHTML(title, bodyContent) {
     '@page { margin-header: 0; margin-footer: 0; }\n' +
     '@media print { @page { size: A4; margin: 18mm 17mm; } }\n' +
     'html, body { margin: 0; padding: 0; }\n' +
-    'body { font-family: "Noto Sans KR", "Malgun Gothic", "맑은 고딕", serif; font-weight: 400; padding: 28px 32px; line-height: 1.9; color: black; max-width: 820px; margin: 0 auto; font-size: 15px; }\n' +
-    '.print-doc { width: 100%; min-height: 240mm; display: flex; flex-direction: column; }\n' +
-    '.print-doc h1.doc-title { font-size: 27px; font-weight: 700; text-align: center; margin: 8px 0 30px; letter-spacing: 12px; }\n' +
-    '.doc-subtitle { font-size: 12px; color: #555; margin-bottom: 4px; }\n' +
-    'table.form-table { width: 100%; border-collapse: collapse; margin: 18px 0; }\n' +
-    'table.form-table td, table.form-table th { border: 1px solid black; padding: 12px 13px; font-size: 15px; vertical-align: middle; }\n' +
+    'body { font-family: "Noto Sans KR", "Malgun Gothic", "맑은 고딕", serif; font-weight: 400; padding: 12px 16px; line-height: 1.65; color: black; max-width: 820px; margin: 0 auto; font-size: 13.5px; box-sizing: border-box; }\n' +
+    '.form-section { box-sizing: border-box; max-width: 100%; }\n' +
+    '.print-doc { width: 100%; max-width: 100%; display: flex; flex-direction: column; box-sizing: border-box; padding: 2mm; }\n' +
+    '.print-doc h1.doc-title { font-size: 24px; font-weight: 700; text-align: center; margin: 6px 0 22px; letter-spacing: 10px; }\n' +
+    '.doc-subtitle { font-size: 11px; color: #555; margin-bottom: 3px; }\n' +
+    'table.form-table { width: 100%; max-width: 100%; border-collapse: collapse; margin: 16px 0; box-sizing: border-box; table-layout: fixed; }\n' +
+    'table.form-table td, table.form-table th { border: 1px solid black; padding: 11px 12px; font-size: 13.5px; vertical-align: middle; }\n' +
     'table.form-table th { background: #F3F4F6; font-weight: 600; text-align: center; }\n' +
-    '.supervisor-table { width: 220px; margin-left: auto; margin-right: 0; border-collapse: collapse; }\n' +
-    '.supervisor-table th, .supervisor-table td { border: 1px solid black; padding: 7px 9px; font-size: 12px; text-align: center; }\n' +
-    '.supervisor-table th { background: #F9FAFB; width: 64px; }\n' +
-    '.doc-info { margin: 24px 0; padding-left: 6px; }\n' +
-    '.doc-info p { margin: 11px 0; font-size: 15.5px; }\n' +
-    '.section-heading { font-weight: 700; margin: 20px 0 9px; font-size: 16px; }\n' +
-    '.reason-content { padding-left: 16px; line-height: 2.1; font-size: 14.5px; }\n' +
-    '.reason-content p { margin: 8px 0; }\n' +
-    '.doc-attach { margin: 20px 0; padding-left: 16px; }\n' +
-    '.doc-attach p { margin: 7px 0; font-size: 14.5px; }\n' +
-    '.doc-date { text-align: center; margin: 40px 0 26px; font-size: 15.5px; letter-spacing: 2px; }\n' +
-    '.doc-signer-block { margin: 9px 0; padding-left: 52%; font-size: 15px; }\n' +
+    '.supervisor-table { width: 210px; margin-left: auto; margin-right: 0; border-collapse: collapse; }\n' +
+    '.supervisor-table th, .supervisor-table td { border: 1px solid black; padding: 6px 8px; font-size: 11px; text-align: center; }\n' +
+    '.supervisor-table th { background: #F9FAFB; width: 60px; }\n' +
+    '.doc-info { margin: 20px 0; padding-left: 6px; }\n' +
+    '.doc-info p { margin: 10px 0; font-size: 14px; }\n' +
+    '.section-heading { font-weight: 700; margin: 18px 0 8px; font-size: 14.5px; }\n' +
+    '.reason-content { padding-left: 14px; line-height: 2; font-size: 13.5px; }\n' +
+    '.reason-content p { margin: 7px 0; }\n' +
+    '.doc-attach { margin: 16px 0; padding-left: 14px; }\n' +
+    '.doc-attach p { margin: 6px 0; font-size: 13.5px; }\n' +
+    '.doc-body { flex: 1 1 auto; }\n' +
+    '.doc-foot { margin-top: auto; padding-top: 16px; }\n' +
+    '.doc-date { text-align: center; margin: 30px 0 20px; font-size: 14.5px; letter-spacing: 2px; }\n' +
+    '@media print { .print-doc > .doc-date { margin-top: auto; } }\n' +
+    '.doc-signer-block { margin: 8px 0; padding-left: 52%; font-size: 14px; }\n' +
     '.doc-signer-block p { margin: 6px 0; }\n' +
-    '.doc-recipient { text-align: center; font-weight: 700; margin-top: 30px; font-size: 17px; padding-top: 16px; letter-spacing: 3px; }\n' +
-    '.doc-foot-note { font-size: 11px; color: #555; margin-top: 14px; padding-top: 8px; border-top: 1px dashed #999; }\n' +
-    'ul.doc-list-disc { margin: 8px 0 8px 24px; }\n' +
-    'ul.doc-list-disc li { margin: 6px 0; font-size: 14.5px; }\n' +
-    '.approval-line { margin: 22px 0; padding: 0 10px; font-size: 15px; line-height: 2.3; }\n' +
+    '.doc-recipient { text-align: center; font-weight: 700; margin-top: 26px; font-size: 16px; padding-top: 14px; letter-spacing: 3px; }\n' +
+    '.doc-foot-note { font-size: 10px; color: #555; margin-top: 10px; padding-top: 6px; border-top: 1px dashed #999; }\n' +
+    'ul.doc-list-disc { margin: 7px 0 7px 22px; }\n' +
+    'ul.doc-list-disc li { margin: 5px 0; font-size: 13.5px; }\n' +
+    '.approval-line { margin: 16px 0; padding: 0 8px; font-size: 14px; line-height: 2; }\n' +
     '.approval-line p { margin: 4px 0; }\n' +
-    '.form-note { background: #FEF3C7; border-left: 3px solid #F59E0B; padding: 11px 14px; margin: 16px 0; font-size: 12.5px; color: #78350F; }\n' +
-    '.doc-credit { margin-top: auto; padding-top: 16px; border-top: 1px dashed #999; font-size: 10px; color: #666; text-align: center; }\n' +
+    '.form-note { background: #FEF3C7; border-left: 3px solid #F59E0B; padding: 10px 13px; margin: 14px 0; font-size: 12px; color: #78350F; }\n' +
+    '.doc-credit { display: none; }\n' +
     'table.form-table, table.supervisor-table { page-break-inside: avoid; }\n' +
     'table.form-table tr, table.supervisor-table tr { page-break-inside: avoid; }\n' +
+    '.form-section { page-break-inside: avoid; page-break-after: always; }\n' +
+    '.form-section:last-child { page-break-after: auto; }\n' +
+    '.print-doc { page-break-inside: avoid; }\n' +
     '.print-doc h1.doc-title { page-break-after: avoid; }\n' +
     '.section-heading { page-break-after: avoid; }\n' +
     '.doc-date, .doc-signer-block, .doc-recipient { page-break-inside: avoid; }\n' +
-    '.doc-signer-block { page-break-before: auto; }\n' +
     '@media print {\n' +
-    '  html, body { width: 100%; padding: 0; margin: 0; max-width: none; }\n' +
-    '  .print-doc { padding: 0; }\n' +
+    '  html, body { width: auto; max-width: none; margin: 0; padding: 0; }\n' +
+    '  .form-section { width: 100%; height: 259mm; display: flex; flex-direction: column; overflow: hidden; box-sizing: border-box; }\n' +
+    '  .print-doc { flex: 1 1 auto; min-height: 0; width: 100%; box-sizing: border-box; padding: 0; }\n' +
+    '  table.form-table, table.supervisor-table { max-width: 100%; table-layout: fixed; }\n' +
+    '  table.form-table td, table.form-table th { word-wrap: break-word; overflow-wrap: break-word; }\n' +
     '  .no-print, .print-tip { display: none !important; visibility: hidden !important; height: 0 !important; }\n' +
     '  .doc-credit, .doc-credit * { display: none !important; visibility: hidden !important; height: 0 !important; overflow: hidden !important; }\n' +
     '  .form-note { -webkit-print-color-adjust: exact; print-color-adjust: exact; }\n' +
@@ -3183,7 +3192,7 @@ function downloadHTML() {
     var title = document.getElementById('modal-title').textContent;
     var content = document.getElementById('modal-body').innerHTML;
     var filename = getFormFilename(currentFormId) + '.html';
-    var html = makeStandaloneHTML(title, content);
+    var html = makeStandaloneHTML(title, '<div class="form-section">' + content + '</div>');
     var blob = new Blob([html], { type: 'text/html;charset=utf-8' });
     triggerDownload(blob, filename);
   } catch (err) {
@@ -3197,7 +3206,7 @@ function printForm() {
   try {
     var title = document.getElementById('modal-title').textContent;
     var content = document.getElementById('modal-body').innerHTML;
-    var html = makeStandaloneHTML(title, content);
+    var html = makeStandaloneHTML(title, '<div class="form-section">' + content + '</div>');
     var printWindow = window.open('', '_blank');
     if (!printWindow) {
       alert('팝업이 차단되었습니다. 팝업 허용 후 다시 시도해주세요.');
@@ -3235,8 +3244,7 @@ function downloadAllForms() {
     var combined = '';
     for (var k = 0; k < formIds.length; k++) {
       var content = generateForm(formIds[k], i);
-      var pageBreak = k > 0 ? ' style="page-break-before: always;"' : '';
-      combined += '<div class="form-section"' + pageBreak + '>' + content + '</div>';
+      combined += '<div class="form-section">' + content + '</div>';
     }
     var projectName = (i.name || '계약서류').replace(/[\\\/:*?"<>|]/g, '_').substring(0, 30);
     var filename = todayShort() + '_' + projectName + '_전체서식_' + formIds.length + '건.html';
@@ -3265,8 +3273,7 @@ function printAllForms() {
     var combined = '';
     for (var k = 0; k < formIds.length; k++) {
       var content = generateForm(formIds[k], i);
-      var pageBreak = k > 0 ? ' style="page-break-before: always;"' : '';
-      combined += '<div class="form-section"' + pageBreak + '>' + content + '</div>';
+      combined += '<div class="form-section">' + content + '</div>';
     }
     var projectName = (i.name || '계약서류').substring(0, 30);
     var html = makeStandaloneHTML(projectName + ' 전체 서식 (' + formIds.length + '건)', combined);
