@@ -3,7 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>사업담당자 별별 계약 매뉴얼</title>
+<title>화성 별별 계약 길잡이</title>
+<link rel="preconnect" href="https://cdn.jsdelivr.net">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap">
 <style>
 :root {
   --primary: #1F4E79;
@@ -29,9 +34,19 @@
 }
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body {
-  font-family: 'Malgun Gothic', '맑은 고딕', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-family: 'Pretendard', 'Pretendard Variable', -apple-system, BlinkMacSystemFont, 'Malgun Gothic', '맑은 고딕', sans-serif;
+  font-weight: 400;
   background: var(--bg); color: var(--text); font-size: 14px; line-height: 1.5; min-height: 100vh;
+  -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
 }
+/* 영역별 글씨 굵기 (Pretendard) */
+.header h1 { font-weight: 700 !important; }                 /* 메인 제목 — Bold */
+.card-title, .card-title .icon-text { font-weight: 600; }    /* 카드 제목 — SemiBold */
+.btn-header, .type-btn, .subtype-btn, .opt-btn, .quick-btn,
+.mini-btn, .btn-action, button { font-weight: 600; }         /* 버튼 — SemiBold */
+.alert, .alerts-disclaimer { font-weight: 500; }             /* 주의사항 — Medium */
+.info-table, .info-table td, .stat-value, .quickref-desc,
+.flow-desc, .doc-desc { font-weight: 400; }                  /* 본문 설명 — Regular */
 .header {
   background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
   color: white; padding: 9px 24px;
@@ -493,7 +508,31 @@ body.edit-mode #edit-mode-btn {
 }
 
 .result-panel { display: flex; flex-direction: column; gap: 10px; }
-.summary-row { display: grid; grid-template-columns: 1.3fr 1fr; gap: 10px; }
+.summary-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.summary-row2 { display: grid; grid-template-columns: 1fr; gap: 10px; }
+.top-row { display: grid; grid-template-columns: 1.25fr 1fr 0.95fr; gap: 10px; align-items: start; }
+.quickref-card { border: 2px solid var(--secondary); background: linear-gradient(180deg, #F8FBFF 0%, var(--card) 30%); }
+/* 실무 빠른 안내 패널 */
+.quickref-list { display: flex; flex-direction: column; gap: 3px; }
+.quickref-item {
+  display: flex; gap: 6px; align-items: flex-start;
+  background: var(--card); border-radius: 5px; padding: 4px 7px;
+  border: 1px solid var(--border); border-left: 3px solid var(--secondary);
+  cursor: pointer; transition: background 0.15s, transform 0.1s, box-shadow 0.15s;
+}
+.quickref-item:hover { background: var(--light-blue); transform: translateX(2px); box-shadow: 0 1px 4px rgba(46,117,182,0.2); }
+.quickref-num {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 15px; height: 15px; flex-shrink: 0; margin-top: 1px;
+  background: var(--secondary); color: #fff; border-radius: 50%;
+  font-size: 8.5px; font-weight: 700;
+}
+.quickref-text { flex: 1; min-width: 0; }
+.quickref-title { font-size: 10px; font-weight: 700; color: var(--text); line-height: 1.3; }
+.quickref-desc { font-size: 8px; color: var(--text-mute); line-height: 1.25; margin-top: 0; }
+.quickref-star { color: var(--secondary); font-size: 10.5px; font-weight: 700; flex-shrink: 0; opacity: 0.9; margin-top: 1px; }
+.quickref-item:hover .quickref-star { color: var(--warning); }
+@media (max-width: 1200px) { .top-row { grid-template-columns: 1fr; } }
 .card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 12px 14px; }
 .card-title {
   font-size: 11px; font-weight: 700; color: var(--primary);
@@ -733,7 +772,7 @@ body.edit-mode #edit-mode-btn {
 }
 
 /* 서식 인쇄 스타일 */
-.print-doc { font-family: 'Malgun Gothic', '맑은 고딕', serif; color: black; line-height: 1.7; font-size: 13px; }
+.print-doc { font-family: 'Noto Sans KR', 'Malgun Gothic', '맑은 고딕', serif; font-weight: 400; color: black; line-height: 1.7; font-size: 13px; }
 .print-doc h1.doc-title {
   font-size: 22px; font-weight: 700;
   text-align: center; margin: 0 0 22px; letter-spacing: 10px;
@@ -801,7 +840,7 @@ body.edit-mode #edit-mode-btn {
 
 <div class="header">
   <div>
-    <h1><span data-editable data-ekey="title5">🌟 사업담당자 <span style="background:linear-gradient(120deg,#FBBF24,#F472B6,#A78BFA); color:#fff; padding:2px 14px; border-radius:14px; box-shadow:0 2px 5px rgba(244,114,182,0.4); font-weight:800;">⭐ 별별 ⭐</span> 계약 매뉴얼</span> <span class="role-badge">🧑‍💼 사업담당자 기준</span></h1>
+    <h1><span data-editable data-ekey="title6">🌟 화성 <span style="background:linear-gradient(120deg,#FBBF24,#F472B6,#A78BFA); color:#fff; padding:2px 14px; border-radius:14px; box-shadow:0 2px 5px rgba(244,114,182,0.4); font-weight:800;">⭐ 별별 ⭐</span> 계약 길잡이</span> <span class="role-badge">🧑‍💼 사업담당자 기준</span></h1>
   </div>
   <div style="display:flex; align-items:center; gap:8px;">
     <div class="usage-tip">
@@ -891,7 +930,7 @@ body.edit-mode #edit-mode-btn {
     <div class="form-row contract-only"><label class="form-label">업체명 (상호)</label><input type="text" class="form-input" id="vendor-name" placeholder="예: ○○건설(주)"></div>
     <div class="form-row contract-only"><label class="form-label">대표자</label><input type="text" class="form-input" id="rep" placeholder="예: 홍길동"></div>
     <div class="form-row contract-only"><label class="form-label">사업자등록번호</label><input type="text" class="form-input" id="biz-num" placeholder="예: 123-45-67890"></div>
-    <div class="form-row contract-only"><label class="form-label">사업장 주소</label><input type="text" class="form-input" id="address" placeholder="예: 화성시 ○○○로 ○○"></div>
+    <div class="form-row contract-only"><label class="form-label">사업장 주소</label><input type="text" class="form-input" id="address" placeholder="예: ○○시 ○○로 ○○"></div>
     <div class="form-row contract-only"><label class="form-label" id="industry-label">업종 / 면허</label><input type="text" class="form-input" id="industry" placeholder="예: 실내건축공사업"></div>
     <div class="form-row contract-only"><label class="form-label">전화번호</label><input type="text" class="form-input" id="phone" placeholder="예: 031-1234-5678"></div>
 
@@ -905,12 +944,12 @@ body.edit-mode #edit-mode-btn {
     </div>
     <div class="approver-saved-info" id="approver-saved-info"></div>
     <div class="form-row">
-      <label class="form-label">발주 기관명 <span style="color:var(--secondary); font-weight:600; font-size:10px;">※ 전국 공무원 사용 가능</span></label>
-      <input type="text" class="form-input" id="org-name" value="화성시" placeholder="예: ○○시 / ○○군 / ○○도">
+      <label class="form-label">발주 기관명 <span style="color:var(--secondary); font-weight:600; font-size:10px;">※ 전국 공무원 사용 가능 — 자기 기관명 입력</span></label>
+      <input type="text" class="form-input" id="org-name" value="화성시" placeholder="예: ○○시 / ○○군 / ○○도 / ○○교육청">
     </div>
     <div class="form-row">
-      <label class="form-label">서식 수신처 (귀하 앞)</label>
-      <input type="text" class="form-input" id="org-recipient" value="화성시 (분임)재무관" placeholder="예: ○○시 (분임)재무관">
+      <label class="form-label">서식 수신처 (귀하 앞) <span style="color:var(--text-mute); font-weight:400; font-size:10px;">※ 비우면 「기관명 (분임)재무관」 자동 입력</span></label>
+      <input type="text" class="form-input" id="org-recipient" value="" placeholder="예: ○○시 (분임)재무관">
     </div>
     <div class="form-row"><label class="form-label">소속 부서</label><input type="text" class="form-input" id="dept" placeholder="예: AI전략담당관 빅데이터팀"></div>
     <div class="form-row">
@@ -937,7 +976,19 @@ body.edit-mode #edit-mode-btn {
   </div>
 
   <div class="result-panel">
-    <div class="summary-row">
+    <div class="top-row">
+      <div class="card quickref-card">
+        <div class="card-title"><span class="icon-text">📖 실무 빠른 안내</span><span style="font-size:9.5px; color:var(--secondary); font-weight:600; text-transform:none; letter-spacing:0;">(☆ 클릭 시 상세)</span></div>
+        <div class="quickref-list" id="quickref-list">
+          <div class="quickref-item" onclick="showQuickRef('ilsang')"><span class="quickref-num">1</span><div class="quickref-text"><div class="quickref-title">일상경비란?</div><div class="quickref-desc">사업부서 직접 집행 소액경비 (500만원 미만 자체계약)</div></div><span class="quickref-star">☆</span></div>
+          <div class="quickref-item" onclick="showQuickRef('ilban')"><span class="quickref-num">2</span><div class="quickref-text"><div class="quickref-title">일반지출이란?</div><div class="quickref-desc">재무관(회계부서) 통해 집행하는 일반 지출</div></div><span class="quickref-star">☆</span></div>
+          <div class="quickref-item" onclick="showQuickRef('skip')"><span class="quickref-num">3</span><div class="quickref-text"><div class="quickref-title">계약 생략 가능한 경우</div><div class="quickref-desc">물품구입+카드결제 — 일부 서류 생략 가능</div></div><span class="quickref-star">☆</span></div>
+          <div class="quickref-item" onclick="showQuickRef('card')"><span class="quickref-num">4</span><div class="quickref-text"><div class="quickref-title">카드 지출</div><div class="quickref-desc">카드는 지급수단 — 계약절차 대체 불가</div></div><span class="quickref-star">☆</span></div>
+          <div class="quickref-item" onclick="showQuickRef('suui')"><span class="quickref-num">5</span><div class="quickref-text"><div class="quickref-title">수의계약 (1인·2인 견적)</div><div class="quickref-desc">2천만원 이하 1인견적 / 초과 2인견적</div></div><span class="quickref-star">☆</span></div>
+          <div class="quickref-item" onclick="showQuickRef('jeokga')"><span class="quickref-num">6</span><div class="quickref-text"><div class="quickref-title">견적서 생략 기준</div><div class="quickref-desc">200만원 미만·카드구매 등 견적 생략 가능</div></div><span class="quickref-star">☆</span></div>
+          <div class="quickref-item" onclick="showQuickRef('etc')"><span class="quickref-num">7</span><div class="quickref-text"><div class="quickref-title">지출결의서 유형</div><div class="quickref-desc">금액·계약 성격별 결의서 선택</div></div><span class="quickref-star">☆</span></div>
+        </div>
+      </div>
       <div class="card">
         <div class="card-title"><span class="icon-text">📌 계약 정보 요약</span><span class="badge" id="badge-type">공사</span></div>
         <table class="info-table" id="info-table"></table>
@@ -1010,7 +1061,7 @@ body.edit-mode #edit-mode-btn {
         <button class="btn-action" onclick="copyDocs()">📋 서류목록 복사</button>
         <button class="btn-action green" onclick="downloadAllForms()">📦 전체 서식 일괄 다운로드</button>
         <button class="btn-action green" onclick="printAllForms()">🖨️ 전체 서식 일괄 인쇄</button>
-        <span class="made-by" style="margin-left:auto; font-size:10px; color:var(--text-mute); line-height:1.4; text-align:right;">만든이 — <b style="color:var(--text);">화성시 AI스마트전략실 빅데이터팀</b><br>신환철 · 전명구 · 이동재 · 박애경 · 김지현 · 지우근 · 이주희</span>
+        <span class="made-by" style="margin-left:auto; font-size:10px; color:var(--text-mute); line-height:1.4; text-align:right;">만든이 — <b style="color:var(--text);">화성시 AI스마트전략실 빅데이터팀</b><br>전명구 · 이동재</span>
       </div>
     </div>
   </div>
@@ -1175,6 +1226,111 @@ function showTypeGuide(typeKey) {
 
 function closeTypeGuide() {
   document.getElementById('type-guide-overlay').classList.remove('active');
+}
+
+// 실무 빠른 안내 (일상경비·일반지출·계약생략·카드·결의서)
+var QUICKREF = {
+  ilsang: {
+    title: '① 일상경비란?',
+    html:
+      '<div class="dg-label">📌 한 줄 요약</div>' +
+      '<div class="dg-text" style="margin-bottom:10px;">사업부서가 회계부서를 거치지 않고 <b>직접 집행</b>하는 소액·정형 경비입니다. 회계부서에서 자금을 미리 교부받아 집행합니다.</div>' +
+      '<div class="dg-label">📝 주요 내용</div>' +
+      '<div class="dg-text" style="margin-bottom:10px;">· 추정가격 <b>500만원 미만</b> 사업은 사업부서에서 자체 계약 실시 → 일상경비로 교부<br>· 소액 물품·수선·공공요금 등 반복·소액 지출에 활용<br>· 집행 후 증빙(영수증·거래명세서 등) 정산 필요</div>' +
+      '<div class="dg-note">근거 : 붙임 매뉴얼 — 추정가격 500만원 미만 사업부서 자체계약·일상경비 교부 (회계과-452, 2023.1.3.) · 실제 운영 기준은 기관 회계규칙에 따라 다를 수 있습니다.</div>'
+  },
+  ilban: {
+    title: '② 일반지출이란?',
+    html:
+      '<div class="dg-label">📌 한 줄 요약</div>' +
+      '<div class="dg-text" style="margin-bottom:10px;">재무관(회계부서)을 통해 지출원인행위·지출명령 절차를 거쳐 집행하는 <b>일반적인 지출</b>입니다.</div>' +
+      '<div class="dg-label">📝 일상경비와 비교</div>' +
+      '<table class="dg-table">' +
+      '<tr><th>구분</th><th>일상경비</th><th>일반지출</th></tr>' +
+      '<tr><td>집행 주체</td><td>사업부서 직접</td><td>재무관(회계부서)</td></tr>' +
+      '<tr><td>대상</td><td>소액·정형 경비</td><td>일반 계약·지출</td></tr>' +
+      '<tr><td>자금</td><td>미리 교부받아 집행</td><td>건별 지출명령</td></tr>' +
+      '</table>' +
+      '<div class="dg-note">금액·경비 성격에 따라 일상경비/일반지출 구분은 기관 회계규칙·시스템 설정에 따라 다를 수 있습니다.</div>'
+  },
+  skip: {
+    title: '③ 계약 생략 가능한 경우',
+    html:
+      '<div class="dg-label">📌 한 줄 요약</div>' +
+      '<div class="dg-text" style="margin-bottom:10px;"><b>물품구입 + 신용카드 결제</b> 등 일정 요건을 충족하면 정식 계약을 생략할 수 있습니다. 이때 품의유형은 「일반」으로 잡습니다.</div>' +
+      '<div class="dg-label">📝 계약 생략 시 생략 가능 서류</div>' +
+      '<div class="dg-text" style="margin-bottom:10px;">첨부생략서약서 · 착수(착공)신고서 · 완료(준공)신고서 · 검사조서 등 → <b>생략 가능</b><br>단, 품의 · 견적서(또는 가격비교 자료) · 사업자등록증 · 영수증/거래명세서 등 <b>증빙은 필요</b></div>' +
+      '<div class="dg-label">⚠️ 계약 생략 불가</div>' +
+      '<div class="dg-text" style="margin-bottom:10px;">공사 · 용역 · 수리/수선은 <b>계약 생략 불가</b> (물품구입+카드 아니면 생략 불가). 이 경우 품의유형을 공사·용역·수리수선·물품구입 중 선택해야 지출결의서 다음 페이지에 계약조건이 인쇄되어 간이계약서로 활용 가능.</div>' +
+      '<div class="dg-note">소액 용역(에어컨 수리 등)은 관행상 계약 없이 처리하기도 하나, 원칙은 계약 필요. 견적서 생략은 추정가격 200만원 미만 등 별도 요건 충족 시 (지방계약법 시행규칙 §33). 기관·사안별로 다를 수 있어 계약부서 확인 권장.</div>'
+  },
+  card: {
+    title: '④ 카드 지출',
+    html:
+      '<div class="dg-label">📌 한 줄 요약</div>' +
+      '<div class="dg-text" style="margin-bottom:10px;">신용카드는 <b>대금 지급 수단</b>일 뿐, 계약 방식이 아닙니다. 카드로 결제했어도 예산집행품의·가격비교·납품·검사검수·지출처리 절차는 필요합니다.</div>' +
+      '<div class="dg-label">📝 인터넷·카드 물품구매 절차</div>' +
+      '<div class="dg-text" style="margin-bottom:10px;">예산집행품의 → 인터넷 검색·가격비교 → 구매처 선정 → 구매카드 결제 → 납품 → 검사·검수 → 카드대금 지출처리</div>' +
+      '<div class="dg-label">⚠️ 관리 의무</div>' +
+      '<div class="dg-text" style="margin-bottom:10px;">· 개인카드 업무 사용·공용카드 사적 사용 금지<br>· e호조 사용내역에 실제 사용자 실명 입력<br>· 카드·현금영수증 사용내역 매월 분임재무관까지 보고<br>· 나라장터 종합쇼핑몰 등록 물품은 조달구매 우선 검토</div>' +
+      '<div class="dg-note">추정가격 200만원 미만 물품을 카드로 구매 시 견적서 제출 생략 가능 (지방계약법 시행규칙 §33). 금액·기관 회계규칙에 따라 달라질 수 있습니다.</div>'
+  },
+  suui: {
+    title: '⑤ 수의계약 (1인·2인 견적)',
+    html:
+      '<div class="dg-label">📌 한 줄 요약</div>' +
+      '<div class="dg-text" style="margin-bottom:10px;">경쟁입찰 없이 특정 업체와 체결하는 계약입니다. 견적 수에 따라 <b>1인 견적</b>과 <b>2인 이상 견적</b>으로 나뉩니다.</div>' +
+      '<div class="dg-label">📝 1인 견적 vs 2인 견적 vs 견적 생략</div>' +
+      '<table class="dg-table">' +
+      '<tr><th>구분</th><th>의미</th></tr>' +
+      '<tr><td>견적 생략</td><td>견적서 자체를 안 받아도 되는 예외 (요건 충족 시)</td></tr>' +
+      '<tr><td>1인 견적 수의</td><td>견적서는 받되, 1개 업체 견적으로 계약상대자 결정</td></tr>' +
+      '<tr><td>2인 견적 수의</td><td>지정정보처리장치(G2B) 등으로 2개 이상 견적 비교</td></tr>' +
+      '</table>' +
+      '<div class="dg-label" style="margin-top:10px;">💰 추정가격 기준 (붙임 매뉴얼)</div>' +
+      '<div class="dg-text" style="margin-bottom:10px;">· <b>1인 견적 수의</b> : 추정가격 2천만원 이하 (통상적 수의계약)<br>· <b>2인 이상 견적 소액수의</b> : 2천만원 초과 ~ 일반공사 4억·전문공사 2억·용역물품 1.6억 이하 (화성시 제한)<br>· <b>장애인·여성·사회적·청년창업기업</b> : 1인 수의 추정가격 5천만원 이하</div>' +
+      '<div class="dg-note">금액 한도는 붙임 매뉴얼(화성시 제한 기준) 근거이며, 기관·법령에 따라 다를 수 있어 계약부서 확인 권장.</div>'
+  },
+  jeokga: {
+    title: '⑥ 견적서 생략 기준',
+    html:
+      '<div class="dg-label">📌 한 줄 요약</div>' +
+      '<div class="dg-text" style="margin-bottom:10px;">수의계약 시 원칙은 견적서를 받지만, 일정 요건을 충족하면 <b>견적서 제출을 생략</b>할 수 있습니다. (지방계약법 시행규칙 §33)</div>' +
+      '<div class="dg-label">📝 견적서 제출 생략 가능 대표 사례</div>' +
+      '<table class="dg-table">' +
+      '<tr><th>구분</th><th>내용</th></tr>' +
+      '<tr><td>공급계약</td><td>전기·가스·수도 등 공급계약</td></tr>' +
+      '<tr><td>소액 물품·용역</td><td>추정가격 200만원 미만 물품 제조·구매·임차 및 용역</td></tr>' +
+      '<tr><td>카드 구매</td><td>추정가격 200만원 미만 물품을 신용카드로 구매</td></tr>' +
+      '<tr><td>국가·지자체</td><td>국가 또는 다른 지방자치단체와 수의계약</td></tr>' +
+      '</table>' +
+      '<div class="dg-note">신용카드 구매라고 무조건 생략되는 것이 아니라, 추정가격 200만원 미만 등 요건 충족 필요. 견적 생략해도 영수증·거래명세서 등 증빙은 갖춰야 함. 근거: 지방계약법 시행규칙 §33 (기관·사안별 확인 권장).</div>'
+  },
+  etc: {
+    title: '⑤ 지출결의서 유형',
+    html:
+      '<div class="dg-label">📌 한 줄 요약</div>' +
+      '<div class="dg-text" style="margin-bottom:10px;">계약 내용·금액에 따라 적정한 <b>지출결의서 유형</b>을 선택해야 합니다.</div>' +
+      '<div class="dg-label">📝 유형 구분</div>' +
+      '<table class="dg-table">' +
+      '<tr><th>구분</th><th>지출결의서 유형</th></tr>' +
+      '<tr><td>카드·인터넷 소액 물품구매</td><td>일반지출결의서</td></tr>' +
+      '<tr><td>기준금액 초과 물품구매</td><td>물품 또는 기타 구입 지출결의서</td></tr>' +
+      '<tr><td>공사 관급자재</td><td>구입 지출결의서</td></tr>' +
+      '<tr><td>공사·용역 계약</td><td>공사·용역 지출결의서</td></tr>' +
+      '</table>' +
+      '<div class="dg-note">감사사례상 구매카드·인터넷 200만원 이하 물품구매는 일반지출결의서, 200만원 초과는 물품(기타구입) 지출결의서 사용 취지. 기준금액은 기관 회계규칙·시스템 설정에 따라 다르므로 반드시 확인하세요.</div>'
+  }
+};
+
+function showQuickRef(key) {
+  var g = QUICKREF[key];
+  if (!g) return;
+  document.getElementById('doc-guide-title').textContent = g.title;
+  document.getElementById('doc-guide-body').innerHTML =
+    '<div class="dg-section">' + g.html + '</div>' +
+    '<div class="dg-foot">※ 본 안내는 이해를 돕기 위한 참고용이며, 관련 법령·기관 회계규칙 및 사안 특성에 따라 달라질 수 있습니다. (2026년 기준)</div>';
+  document.getElementById('doc-guide-overlay').classList.add('active');
 }
 
 function getSubtypeLabel() {
@@ -2893,12 +3049,15 @@ function generateForm(formId, i) {
 // 다운로드 기능 (순수 Blob API - 라이브러리 의존 없음)
 // ═══════════════════════════════════════════════════
 function makeStandaloneHTML(title, bodyContent) {
-  return '<!DOCTYPE html>\n<html lang="ko">\n<head>\n<meta charset="UTF-8">\n<title>\u00A0</title>\n<style>\n' +
+  return '<!DOCTYPE html>\n<html lang="ko">\n<head>\n<meta charset="UTF-8">\n<title>\u00A0</title>\n' +
+    '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>\n' +
+    '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap">\n' +
+    '<style>\n' +
     '@page { size: A4; margin: 18mm 17mm; }\n' +
     '@page { margin-header: 0; margin-footer: 0; }\n' +
     '@media print { @page { size: A4; margin: 18mm 17mm; } }\n' +
     'html, body { margin: 0; padding: 0; }\n' +
-    'body { font-family: "Malgun Gothic", "맑은 고딕", serif; padding: 28px 32px; line-height: 1.9; color: black; max-width: 820px; margin: 0 auto; font-size: 15px; }\n' +
+    'body { font-family: "Noto Sans KR", "Malgun Gothic", "맑은 고딕", serif; font-weight: 400; padding: 28px 32px; line-height: 1.9; color: black; max-width: 820px; margin: 0 auto; font-size: 15px; }\n' +
     '.print-doc { width: 100%; min-height: 240mm; display: flex; flex-direction: column; }\n' +
     '.print-doc h1.doc-title { font-size: 27px; font-weight: 700; text-align: center; margin: 8px 0 30px; letter-spacing: 12px; }\n' +
     '.doc-subtitle { font-size: 12px; color: #555; margin-bottom: 4px; }\n' +
@@ -2946,12 +3105,10 @@ function makeStandaloneHTML(title, bodyContent) {
     '(체크 해제하면 상단의 날짜·제목, 하단의 about:blank·페이지번호가 사라집니다. 이 안내문은 인쇄물에는 출력되지 않습니다.)' +
     '</div>\n' +
     bodyContent +
-    '\n<div class="doc-credit" id="docCredit">만든이 — 화성시 AI스마트전략실 빅데이터팀 : 신환철 · 전명구 · 이동재 · 박애경 · 김지현 · 지우근 · 이주희</div>\n' +
     '<script>(function(){' +
-    'var c=document.getElementById("docCredit");' +
     'var tip=document.querySelector(".print-tip");' +
-    'function hide(){ if(c){ c.setAttribute("data-html", c.outerHTML); c.style.display="none"; if(c.parentNode){ c.parentNode.removeChild(c); } } if(tip){ tip.style.display="none"; } }' +
-    'function show(){ if(c && !c.parentNode){ document.body.appendChild(c); c.style.display=""; } if(tip){ tip.style.display=""; } }' +
+    'function hide(){ if(tip){ tip.style.display="none"; } }' +
+    'function show(){ if(tip){ tip.style.display=""; } }' +
     'window.addEventListener("beforeprint", hide);' +
     'window.addEventListener("afterprint", show);' +
     'if(window.matchMedia){ var mq=window.matchMedia("print"); mq.addListener && mq.addListener(function(e){ e.matches?hide():show(); }); }' +
